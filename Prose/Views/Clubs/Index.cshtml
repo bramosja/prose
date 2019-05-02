@@ -6,9 +6,6 @@
 
 <h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -48,10 +45,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.UserId)
             </td>
+            @*Create a constraint that limits these abilities to only the user that has created the club, and an if statement for those who are in the club to be able to see only the club details*@
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ClubId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.ClubId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ClubId">Delete</a>
+                <a asp-action="Delete" asp-route-id="@item.ClubId">Delete</a> 
             </td>
         </tr>
 }

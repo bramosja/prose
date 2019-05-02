@@ -47,7 +47,7 @@ namespace Prose.Data
                    Location = "Nashville, TN",
                    Description = "A relaxed group of ladies who all know Asia somehow.",
                    MeetingFrequency = "Once a month",
-                   UserId = 2
+                   UserId = user.Id
                },
                new Club()
                {
@@ -56,7 +56,7 @@ namespace Prose.Data
                    Location = "Nashville, TN",
                    Description = "Stephen King themed club.",
                    MeetingFrequency = "Once bimonthly",
-                   UserId = 2
+                   UserId = user.Id
                },
                new Club()
                {
@@ -65,7 +65,7 @@ namespace Prose.Data
                    Location = "Nashville, TN",
                    Description = "A social justice oriented book club for all Nashvillians",
                    MeetingFrequency = "Twice a month",
-                   UserId = 3
+                   UserId = user.Id
                }
            );
             modelBuilder.Entity<ClubUser>().HasData(
@@ -73,19 +73,19 @@ namespace Prose.Data
                {
                    ClubUserId = 1,
                    ClubId = 1,
-                   UserId = 2
+                   UserId = user.Id
                },
                new ClubUser()
                {
                    ClubUserId = 2,
                    ClubId = 2,
-                   UserId = 2
+                   UserId = user.Id
                },
                new ClubUser()
                {
                    ClubUserId = 3,
                    ClubId = 3,
-                   UserId = 3
+                   UserId = user.Id
                }
            );
             modelBuilder.Entity<Vote>().HasData(

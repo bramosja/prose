@@ -10,7 +10,7 @@ using Prose.Data;
 namespace Prose.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190430195453_ProseTables")]
+    [Migration("20190502182746_ProseTables")]
     partial class ProseTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -262,7 +262,8 @@ namespace Prose.Migrations
                     b.Property<string>("Name")
                         .IsRequired();
 
-                    b.Property<int>("UserId");
+                    b.Property<string>("UserId")
+                        .IsRequired();
 
                     b.HasKey("ClubId");
 
@@ -276,7 +277,7 @@ namespace Prose.Migrations
                             Location = "Nashville, TN",
                             MeetingFrequency = "Once a month",
                             Name = "Bookish Broads",
-                            UserId = 2
+                            UserId = "e728191e-cfc5-4f02-957e-d1b9224663c0"
                         },
                         new
                         {
@@ -285,7 +286,7 @@ namespace Prose.Migrations
                             Location = "Nashville, TN",
                             MeetingFrequency = "Once bimonthly",
                             Name = "Kingers",
-                            UserId = 2
+                            UserId = "e728191e-cfc5-4f02-957e-d1b9224663c0"
                         },
                         new
                         {
@@ -294,7 +295,7 @@ namespace Prose.Migrations
                             Location = "Nashville, TN",
                             MeetingFrequency = "Twice a month",
                             Name = "SJ Readers of Nashville",
-                            UserId = 3
+                            UserId = "e728191e-cfc5-4f02-957e-d1b9224663c0"
                         });
                 });
 
@@ -306,15 +307,14 @@ namespace Prose.Migrations
 
                     b.Property<int>("ClubId");
 
-                    b.Property<int>("UserId");
-
-                    b.Property<string>("UserId1");
+                    b.Property<string>("UserId")
+                        .IsRequired();
 
                     b.HasKey("ClubUserId");
 
                     b.HasIndex("ClubId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("ClubUser");
 
@@ -323,19 +323,19 @@ namespace Prose.Migrations
                         {
                             ClubUserId = 1,
                             ClubId = 1,
-                            UserId = 2
+                            UserId = "e728191e-cfc5-4f02-957e-d1b9224663c0"
                         },
                         new
                         {
                             ClubUserId = 2,
                             ClubId = 2,
-                            UserId = 2
+                            UserId = "e728191e-cfc5-4f02-957e-d1b9224663c0"
                         },
                         new
                         {
                             ClubUserId = 3,
                             ClubId = 3,
-                            UserId = 3
+                            UserId = "e728191e-cfc5-4f02-957e-d1b9224663c0"
                         });
                 });
 
@@ -389,17 +389,17 @@ namespace Prose.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "536cd429-1a84-4a46-a0e0-449162e3ccf1",
+                            Id = "e728191e-cfc5-4f02-957e-d1b9224663c0",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "15c77df4-50b9-4a23-9a75-57a45a422575",
+                            ConcurrencyStamp = "436b12a6-9e2c-4107-a7cf-51bba6c55ae4",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJekgpCnDYsOS0NwSdsKbuVLXImOsfYtTw2i+TunuEGaInyqFwPsXRbzisVXh7PPMA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECtOyUsK7QHBMvypQTADxhYRS721tgjAeruI3/0P5Q8+y9vD9NlZdzu+tLtbmN+xEQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "62fcc8dc-1b34-4536-b423-d76b442c2046",
+                            SecurityStamp = "ddeb304c-f0a5-4aed-ab25-36421891c8ca",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com",
                             FirstName = "admin",
@@ -469,7 +469,8 @@ namespace Prose.Migrations
 
                     b.HasOne("Prose.Models.ApplicationUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

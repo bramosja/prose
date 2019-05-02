@@ -60,7 +60,7 @@ namespace Prose.Migrations
                     Location = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     MeetingFrequency = table.Column<string>(nullable: true),
-                    UserId = table.Column<int>(nullable: false)
+                    UserId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -193,8 +193,7 @@ namespace Prose.Migrations
                 {
                     ClubUserId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<int>(nullable: false),
-                    UserId1 = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: false),
                     ClubId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -207,11 +206,11 @@ namespace Prose.Migrations
                         principalColumn: "ClubId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ClubUser_AspNetUsers_UserId1",
-                        column: x => x.UserId1,
+                        name: "FK_ClubUser_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -241,16 +240,16 @@ namespace Prose.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "FirstName", "LastName" },
-                values: new object[] { "536cd429-1a84-4a46-a0e0-449162e3ccf1", 0, "15c77df4-50b9-4a23-9a75-57a45a422575", "ApplicationUser", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEJekgpCnDYsOS0NwSdsKbuVLXImOsfYtTw2i+TunuEGaInyqFwPsXRbzisVXh7PPMA==", null, false, "62fcc8dc-1b34-4536-b423-d76b442c2046", false, "admin@admin.com", "admin", "admin" });
+                values: new object[] { "e728191e-cfc5-4f02-957e-d1b9224663c0", 0, "436b12a6-9e2c-4107-a7cf-51bba6c55ae4", "ApplicationUser", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAECtOyUsK7QHBMvypQTADxhYRS721tgjAeruI3/0P5Q8+y9vD9NlZdzu+tLtbmN+xEQ==", null, false, "ddeb304c-f0a5-4aed-ab25-36421891c8ca", false, "admin@admin.com", "admin", "admin" });
 
             migrationBuilder.InsertData(
                 table: "Club",
                 columns: new[] { "ClubId", "Description", "Location", "MeetingFrequency", "Name", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "A relaxed group of ladies who all know Asia somehow.", "Nashville, TN", "Once a month", "Bookish Broads", 2 },
-                    { 2, "Stephen King themed club.", "Nashville, TN", "Once bimonthly", "Kingers", 2 },
-                    { 3, "A social justice oriented book club for all Nashvillians", "Nashville, TN", "Twice a month", "SJ Readers of Nashville", 3 }
+                    { 1, "A relaxed group of ladies who all know Asia somehow.", "Nashville, TN", "Once a month", "Bookish Broads", "e728191e-cfc5-4f02-957e-d1b9224663c0" },
+                    { 2, "Stephen King themed club.", "Nashville, TN", "Once bimonthly", "Kingers", "e728191e-cfc5-4f02-957e-d1b9224663c0" },
+                    { 3, "A social justice oriented book club for all Nashvillians", "Nashville, TN", "Twice a month", "SJ Readers of Nashville", "e728191e-cfc5-4f02-957e-d1b9224663c0" }
                 });
 
             migrationBuilder.InsertData(
@@ -265,18 +264,18 @@ namespace Prose.Migrations
 
             migrationBuilder.InsertData(
                 table: "ClubUser",
-                columns: new[] { "ClubUserId", "ClubId", "UserId", "UserId1" },
-                values: new object[] { 1, 1, 2, null });
+                columns: new[] { "ClubUserId", "ClubId", "UserId" },
+                values: new object[] { 1, 1, "e728191e-cfc5-4f02-957e-d1b9224663c0" });
 
             migrationBuilder.InsertData(
                 table: "ClubUser",
-                columns: new[] { "ClubUserId", "ClubId", "UserId", "UserId1" },
-                values: new object[] { 2, 2, 2, null });
+                columns: new[] { "ClubUserId", "ClubId", "UserId" },
+                values: new object[] { 2, 2, "e728191e-cfc5-4f02-957e-d1b9224663c0" });
 
             migrationBuilder.InsertData(
                 table: "ClubUser",
-                columns: new[] { "ClubUserId", "ClubId", "UserId", "UserId1" },
-                values: new object[] { 3, 3, 3, null });
+                columns: new[] { "ClubUserId", "ClubId", "UserId" },
+                values: new object[] { 3, 3, "e728191e-cfc5-4f02-957e-d1b9224663c0" });
 
             migrationBuilder.InsertData(
                 table: "Book",
@@ -343,9 +342,9 @@ namespace Prose.Migrations
                 column: "ClubId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ClubUser_UserId1",
+                name: "IX_ClubUser_UserId",
                 table: "ClubUser",
-                column: "UserId1");
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

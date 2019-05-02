@@ -23,7 +23,7 @@ namespace Prose.Models
         public string MeetingFrequency { get; set; }
 
         [Required]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         [NotMapped]
         public List<ApplicationUser> Users { get; set; }
