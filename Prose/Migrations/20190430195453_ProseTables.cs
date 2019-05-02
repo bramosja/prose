@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Prose.Data.Migrations
+namespace Prose.Migrations
 {
-    public partial class CreateIdentitySchema : Migration
+    public partial class ProseTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,11 +40,45 @@ namespace Prose.Data.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    Discriminator = table.Column<string>(nullable: false),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Club",
+                columns: table => new
+                {
+                    ClubId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: false),
+                    Location = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    MeetingFrequency = table.Column<string>(nullable: true),
+                    UserId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Club", x => x.ClubId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Vote",
+                columns: table => new
+                {
+                    VoteId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ClubUserId = table.Column<int>(nullable: false),
+                    BookId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Vote", x => x.VoteId);
                 });
 
             migrationBuilder.CreateTable(
@@ -153,6 +187,112 @@ namespace Prose.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ClubUser",
+                columns: table => new
+                {
+                    ClubUserId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<int>(nullable: false),
+                    UserId1 = table.Column<string>(nullable: true),
+                    ClubId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ClubUser", x => x.ClubUserId);
+                    table.ForeignKey(
+                        name: "FK_ClubUser_Club_ClubId",
+                        column: x => x.ClubId,
+                        principalTable: "Club",
+                        principalColumn: "ClubId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ClubUser_AspNetUsers_UserId1",
+                        column: x => x.UserId1,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Book",
+                columns: table => new
+                {
+                    BookId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Title = table.Column<string>(nullable: false),
+                    Author = table.Column<string>(nullable: false),
+                    Image = table.Column<string>(nullable: true),
+                    Details = table.Column<string>(nullable: true),
+                    ISBN = table.Column<int>(nullable: false),
+                    ClubUserId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Book", x => x.BookId);
+                    table.ForeignKey(
+                        name: "FK_Book_ClubUser_ClubUserId",
+                        column: x => x.ClubUserId,
+                        principalTable: "ClubUser",
+                        principalColumn: "ClubUserId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "FirstName", "LastName" },
+                values: new object[] { "536cd429-1a84-4a46-a0e0-449162e3ccf1", 0, "15c77df4-50b9-4a23-9a75-57a45a422575", "ApplicationUser", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEJekgpCnDYsOS0NwSdsKbuVLXImOsfYtTw2i+TunuEGaInyqFwPsXRbzisVXh7PPMA==", null, false, "62fcc8dc-1b34-4536-b423-d76b442c2046", false, "admin@admin.com", "admin", "admin" });
+
+            migrationBuilder.InsertData(
+                table: "Club",
+                columns: new[] { "ClubId", "Description", "Location", "MeetingFrequency", "Name", "UserId" },
+                values: new object[,]
+                {
+                    { 1, "A relaxed group of ladies who all know Asia somehow.", "Nashville, TN", "Once a month", "Bookish Broads", 2 },
+                    { 2, "Stephen King themed club.", "Nashville, TN", "Once bimonthly", "Kingers", 2 },
+                    { 3, "A social justice oriented book club for all Nashvillians", "Nashville, TN", "Twice a month", "SJ Readers of Nashville", 3 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Vote",
+                columns: new[] { "VoteId", "BookId", "ClubUserId" },
+                values: new object[,]
+                {
+                    { 1, 2, 1 },
+                    { 2, 2, 2 },
+                    { 3, 3, 3 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ClubUser",
+                columns: new[] { "ClubUserId", "ClubId", "UserId", "UserId1" },
+                values: new object[] { 1, 1, 2, null });
+
+            migrationBuilder.InsertData(
+                table: "ClubUser",
+                columns: new[] { "ClubUserId", "ClubId", "UserId", "UserId1" },
+                values: new object[] { 2, 2, 2, null });
+
+            migrationBuilder.InsertData(
+                table: "ClubUser",
+                columns: new[] { "ClubUserId", "ClubId", "UserId", "UserId1" },
+                values: new object[] { 3, 3, 3, null });
+
+            migrationBuilder.InsertData(
+                table: "Book",
+                columns: new[] { "BookId", "Author", "ClubUserId", "Details", "ISBN", "Image", "Title" },
+                values: new object[] { 1, "Min Jin Lee", 1, "A riveting tale about something", 0, null, "Pachinko" });
+
+            migrationBuilder.InsertData(
+                table: "Book",
+                columns: new[] { "BookId", "Author", "ClubUserId", "Details", "ISBN", "Image", "Title" },
+                values: new object[] { 3, "George Foreman", 1, "Blah blah", 0, null, "George Foreman: Life and Tales" });
+
+            migrationBuilder.InsertData(
+                table: "Book",
+                columns: new[] { "BookId", "Author", "ClubUserId", "Details", "ISBN", "Image", "Title" },
+                values: new object[] { 2, "Baby Spice", 2, "An autobiographical look into the life of the sweetest member of the Spice Girls", 0, null, "Sugar" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -191,6 +331,21 @@ namespace Prose.Data.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Book_ClubUserId",
+                table: "Book",
+                column: "ClubUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClubUser_ClubId",
+                table: "ClubUser",
+                column: "ClubId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClubUser_UserId1",
+                table: "ClubUser",
+                column: "UserId1");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -211,7 +366,19 @@ namespace Prose.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Book");
+
+            migrationBuilder.DropTable(
+                name: "Vote");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "ClubUser");
+
+            migrationBuilder.DropTable(
+                name: "Club");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
