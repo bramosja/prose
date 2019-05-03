@@ -1,0 +1,45 @@
+﻿@model Prose.Models.Club
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Club</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Location)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MeetingFrequency)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MeetingFrequency)
+        </dd>
+    </dl>
+</div>
+<div>
+    @*Make this affordance only available to the creator of the club*@
+    <a asp-action="Edit" asp-route-id="@Model.ClubId">Edit</a> |
+    <a asp-action="Index">Back to List</a> |
+    @*Only available to non-clubmembers, this will route to the ClubUser controller and perform a "create" in order to add the user to the club*@
+    <a asp-controller="ClubUsers" asp-action="Create" asp-route-id="@Model.ClubId">Join</a>
+</div>
