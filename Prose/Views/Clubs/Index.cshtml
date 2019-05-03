@@ -21,9 +21,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.MeetingFrequency)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserId)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -41,9 +38,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.MeetingFrequency)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserId)
             </td>
             @*Create a constraint that limits these abilities to only the user that has created the club, and an if statement for those who are in the club to be able to see only the club details*@
             <td>
