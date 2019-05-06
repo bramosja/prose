@@ -64,3 +64,7 @@ body {
 a:link {
     color: #B76E79;
 }
+
+a:visited {
+    color: #B76E79;
+}

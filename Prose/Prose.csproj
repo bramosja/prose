@@ -24,9 +24,6 @@
   </ItemGroup>    
   <ItemGroup>
     <None Include="wwwroot\lib\Images\ProseLogo.png" />
-  </ItemGroup>    
-  <ItemGroup>
-    <Folder Include="Views\Clubs\Details\" />
   </ItemGroup>
 
 </Project>
