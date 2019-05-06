@@ -28,6 +28,8 @@ namespace Prose.Models
 
         public ClubUser ClubUser { get; set; }
 
+        public bool CurrentlyReading { get; set; } = false;
+
 
     }
 }

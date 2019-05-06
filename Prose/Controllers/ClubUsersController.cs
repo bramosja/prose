@@ -25,12 +25,13 @@ namespace Prose.Controllers
 
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
-        // GET: ClubUsers
-        public async Task<IActionResult> Index()
+        // Get users based on the club Id. This is the result of clicking on the member's button.
+        public async Task<IActionResult> MemberIndex(int id)
         {
-            var applicationDbContext = _context.ClubUser.Include(c => c.Club);
-            return View(await applicationDbContext.ToListAsync());
+            var applicationDbContext = _context.ClubUser.Include(c => c.Club).Where(cu => cu.Club.ClubId == id);
+            return View("MemberIndex", await applicationDbContext.ToListAsync());
         }
+
 
         // GET: ClubUsers/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -41,7 +42,7 @@ namespace Prose.Controllers
             }
 
             var clubUser = await _context.ClubUser
-                .Include(c => c.Club)
+                .Include(u => u.User)
                 .FirstOrDefaultAsync(m => m.ClubUserId == id);
             if (clubUser == null)
             {
@@ -115,7 +116,7 @@ namespace Prose.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction();
             }
             ViewData["ClubId"] = new SelectList(_context.Club, "ClubId", "Name", clubUser.ClubId);
             return View(clubUser);
@@ -148,7 +149,7 @@ namespace Prose.Controllers
             var clubUser = await _context.ClubUser.FindAsync(id);
             _context.ClubUser.Remove(clubUser);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction();
         }
 
         private bool ClubUserExists(int id)

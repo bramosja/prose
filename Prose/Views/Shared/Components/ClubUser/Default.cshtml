@@ -1,0 +1,11 @@
+﻿<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        My Clubs
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        @foreach (ClubUser c in ViewBag.ClubDropDownList)
+        {
+            <a class="dropdown-item" asp-action="Details" asp-controller="Clubs" asp-route-id="@c.Club.ClubId">@c.Club.Name</a> <br />
+        }
+    </div>
+</div>
