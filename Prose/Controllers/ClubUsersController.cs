@@ -32,41 +32,6 @@ namespace Prose.Controllers
             return View("MemberIndex", await applicationDbContext.ToListAsync());
         }
 
-        // Get all the clubs based on the user Id. This is the result of clicking on the user's "my clubs" button
-        public async Task<IActionResult> UserClubIndex()
-        {
-            var user = await GetCurrentUserAsync();
-
-            var ClubData = _context.ClubUser
-                .Include(c => c.Club)
-                .Include(c => c.User)
-                .Where(cu => cu.UserId == user.Id)
-                .ToList();
-
-            List<SelectListItem> UserClubsList = new List<SelectListItem>();
-
-            UserClubsList.Insert(0, new SelectListItem
-            {
-                Text = "My Clubs",
-                Value = ""
-            });
-
-            foreach (var c in ClubData)
-            {
-                SelectListItem li = new SelectListItem
-                {
-                    Value = c.Club.ClubId.ToString(),
-                    Text = c.Club.Name
-                };
-                UserClubsList.Add(li);
-            };
-
-            ClubUser ClubUser = new ClubUser();
-
-            ClubUser.Clubs = UserClubsList;
-
-            return View(ClubUser);
-        }
 
         // GET: ClubUsers/Details/5
         public async Task<IActionResult> Details(int? id)

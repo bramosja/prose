@@ -33,26 +33,8 @@ namespace Prose.Models.ViewComponents
                 .Where(cu => cu.UserId == user.Id)
                 .ToList();
 
-            List<SelectListItem> UserClubsList = new List<SelectListItem>();
 
-            UserClubsList.Insert(0, new SelectListItem
-            {
-                Text = "My Clubs",
-                Value = ""
-            });
-
-            foreach (var c in ClubData)
-            {
-                SelectListItem li = new SelectListItem
-                {
-                    Value = c.Club.ClubId.ToString(),
-                    Text = c.Club.Name
-                };
-                UserClubsList.Add(li);
-            };
-
-
-            ViewBag.ClubDropDownList = UserClubsList;
+            ViewBag.ClubDropDownList = ClubData;
             return View();
         }
     }

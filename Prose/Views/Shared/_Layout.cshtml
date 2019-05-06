@@ -24,21 +24,26 @@
 </head>
 <body>
     <header>
-        <div style="text-align:center">
-            <div>
-                <div>
-                    <a asp-area="" asp-controller="Home" asp-action="Index"><img src="/Lib/Images/ProseLogo.png" alt="Prose Logo" width="200px" /></a>
+        <div style="text-align:center; width:100%; padding: 30px;">
+            <div class="d-flex justify-content-between">
+                <div style="width: 200px;">
+                  &nbsp;
+                </div>
+                <div class="justify-content-md-center">
+                    <a asp-area="" asp-controller="Home" asp-action="Index"><img src="/Lib/Images/ProseLogo.png" alt="Prose Logo" style="width: 200px;" /></a>
+                </div>
+                <div class="flex-column" style="text-align: right; width: 200px;">
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </div>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="width: 100%;">
             <div class="container">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
@@ -57,13 +62,9 @@
             </div>
         </nav>
     </header>
-    <div class="container">
-        <partial name="_CookieConsentPartial" />
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2019 - Prose - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>

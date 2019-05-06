@@ -22,10 +22,5 @@ namespace Prose.Models
         public int ClubId { get; set; }
 
         public Club Club { get; set; }
-
-        [NotMapped]
-        public List<ApplicationUser> Users { get; set; }
-        [NotMapped]
-        public List<SelectListItem> Clubs { get; set; }
     }
 }
