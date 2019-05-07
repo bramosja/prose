@@ -45,6 +45,22 @@ namespace Prose.Controllers
             return View(book);
         }
 
+        // GET method for the club dashboard which will get the book that is marked as true for currently reading
+        public async Task<IActionResult> GetCurrentlyReading(int id)
+        {
+            var book = await _context.Book
+                .Include(c => c.ClubUser)
+                .Include(c => c.ClubUser.Club)
+                .Where(b => b.CurrentlyReading == true && b.ClubUser.ClubId == id)
+                .FirstOrDefaultAsync();
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            return View("ClubDashboard", book);
+        }
+
         // GET: Books/Create
         public IActionResult Create()
         {

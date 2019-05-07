@@ -241,16 +241,16 @@ namespace Prose.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "FirstName", "LastName" },
-                values: new object[] { "97e8de01-12d1-4329-88d5-31ca1775a2af", 0, "778e9569-fc4f-4c26-b347-1f4e5c5c1bdf", "ApplicationUser", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEFbLEnPQGVvQZuk10XQlH0wJh+wO60pp09GIXtNu/RZ1jXREmhepJIYRyXbdzynrZQ==", null, false, "dec9d08a-c0e8-4aa1-8bee-72db407949ed", false, "admin@admin.com", "admin", "admin" });
+                values: new object[] { "faa5d37d-b80b-4e72-a44f-dfb621de9079", 0, "c17dc5e9-b4e8-4a99-83ce-b8c288016416", "ApplicationUser", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEIUMe6VgzhNsxCsaopK7zLs7DUMcoOu0idMjGiUcSyZ0ul4VOdo2PxLlVr9CLljlCg==", null, false, "bb2e28c8-acab-497c-80e7-79d0e8760d69", false, "admin@admin.com", "admin", "admin" });
 
             migrationBuilder.InsertData(
                 table: "Club",
                 columns: new[] { "ClubId", "Description", "Location", "MeetingFrequency", "Name", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "A relaxed group of ladies who all know Asia somehow.", "Nashville, TN", "Once a month", "Bookish Broads", "97e8de01-12d1-4329-88d5-31ca1775a2af" },
-                    { 2, "Stephen King themed club.", "Nashville, TN", "Once bimonthly", "Kingers", "97e8de01-12d1-4329-88d5-31ca1775a2af" },
-                    { 3, "A social justice oriented book club for all Nashvillians", "Nashville, TN", "Twice a month", "SJ Readers of Nashville", "97e8de01-12d1-4329-88d5-31ca1775a2af" }
+                    { 1, "A relaxed group of ladies who all know Asia somehow.", "Nashville, TN", "Once a month", "Bookish Broads", "faa5d37d-b80b-4e72-a44f-dfb621de9079" },
+                    { 2, "Stephen King themed club.", "Nashville, TN", "Once bimonthly", "Kingers", "faa5d37d-b80b-4e72-a44f-dfb621de9079" },
+                    { 3, "A social justice oriented book club for all Nashvillians", "Nashville, TN", "Twice a month", "SJ Readers of Nashville", "faa5d37d-b80b-4e72-a44f-dfb621de9079" }
                 });
 
             migrationBuilder.InsertData(
@@ -266,22 +266,22 @@ namespace Prose.Migrations
             migrationBuilder.InsertData(
                 table: "ClubUser",
                 columns: new[] { "ClubUserId", "ClubId", "UserId" },
-                values: new object[] { 1, 1, "97e8de01-12d1-4329-88d5-31ca1775a2af" });
+                values: new object[] { 1, 1, "faa5d37d-b80b-4e72-a44f-dfb621de9079" });
 
             migrationBuilder.InsertData(
                 table: "ClubUser",
                 columns: new[] { "ClubUserId", "ClubId", "UserId" },
-                values: new object[] { 2, 2, "97e8de01-12d1-4329-88d5-31ca1775a2af" });
+                values: new object[] { 2, 2, "faa5d37d-b80b-4e72-a44f-dfb621de9079" });
 
             migrationBuilder.InsertData(
                 table: "ClubUser",
                 columns: new[] { "ClubUserId", "ClubId", "UserId" },
-                values: new object[] { 3, 3, "97e8de01-12d1-4329-88d5-31ca1775a2af" });
+                values: new object[] { 3, 3, "faa5d37d-b80b-4e72-a44f-dfb621de9079" });
 
             migrationBuilder.InsertData(
                 table: "Book",
                 columns: new[] { "BookId", "Author", "ClubUserId", "CurrentlyReading", "Details", "ISBN", "Image", "Title" },
-                values: new object[] { 1, "Min Jin Lee", 1, false, "A riveting tale about something", 0, null, "Pachinko" });
+                values: new object[] { 1, "Min Jin Lee", 1, true, "A riveting tale about something", 0, null, "Pachinko" });
 
             migrationBuilder.InsertData(
                 table: "Book",

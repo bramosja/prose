@@ -5,7 +5,7 @@
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         @foreach (ClubUser c in ViewBag.ClubDropDownList)
         {
-            <a class="dropdown-item" asp-action="Details" asp-controller="Clubs" asp-route-id="@c.Club.ClubId">@c.Club.Name</a> <br />
+            <a class="dropdown-item" asp-controller="Books" asp-action="GetCurrentlyReading" asp-route-id="@c.Club.ClubId">@c.Club.Name</a> <br />
         }
     </div>
 </div>

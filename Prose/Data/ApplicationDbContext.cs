@@ -115,7 +115,8 @@ namespace Prose.Data
                    Title = "Pachinko",
                    Author = "Min Jin Lee",
                    Details = "A riveting tale about something",
-                   ClubUserId = 1
+                   ClubUserId = 1,
+                   CurrentlyReading = true
                },
                new Book()
                {
@@ -123,7 +124,8 @@ namespace Prose.Data
                    Title = "Sugar",
                    Author = "Baby Spice",
                    Details = "An autobiographical look into the life of the sweetest member of the Spice Girls",
-                   ClubUserId = 2
+                   ClubUserId = 2,
+                   CurrentlyReading = false
                },
                new Book()
                {
@@ -131,7 +133,8 @@ namespace Prose.Data
                    Title = "George Foreman: Life and Tales",
                    Author = "George Foreman",
                    Details = "Blah blah",
-                   ClubUserId = 1
+                   ClubUserId = 1,
+                   CurrentlyReading = false
                }
             );
         }

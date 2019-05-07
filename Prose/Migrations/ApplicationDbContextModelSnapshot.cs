@@ -223,7 +223,7 @@ namespace Prose.Migrations
                             BookId = 1,
                             Author = "Min Jin Lee",
                             ClubUserId = 1,
-                            CurrentlyReading = false,
+                            CurrentlyReading = true,
                             Details = "A riveting tale about something",
                             ISBN = 0,
                             Title = "Pachinko"
@@ -280,7 +280,7 @@ namespace Prose.Migrations
                             Location = "Nashville, TN",
                             MeetingFrequency = "Once a month",
                             Name = "Bookish Broads",
-                            UserId = "97e8de01-12d1-4329-88d5-31ca1775a2af"
+                            UserId = "faa5d37d-b80b-4e72-a44f-dfb621de9079"
                         },
                         new
                         {
@@ -289,7 +289,7 @@ namespace Prose.Migrations
                             Location = "Nashville, TN",
                             MeetingFrequency = "Once bimonthly",
                             Name = "Kingers",
-                            UserId = "97e8de01-12d1-4329-88d5-31ca1775a2af"
+                            UserId = "faa5d37d-b80b-4e72-a44f-dfb621de9079"
                         },
                         new
                         {
@@ -298,7 +298,7 @@ namespace Prose.Migrations
                             Location = "Nashville, TN",
                             MeetingFrequency = "Twice a month",
                             Name = "SJ Readers of Nashville",
-                            UserId = "97e8de01-12d1-4329-88d5-31ca1775a2af"
+                            UserId = "faa5d37d-b80b-4e72-a44f-dfb621de9079"
                         });
                 });
 
@@ -326,19 +326,19 @@ namespace Prose.Migrations
                         {
                             ClubUserId = 1,
                             ClubId = 1,
-                            UserId = "97e8de01-12d1-4329-88d5-31ca1775a2af"
+                            UserId = "faa5d37d-b80b-4e72-a44f-dfb621de9079"
                         },
                         new
                         {
                             ClubUserId = 2,
                             ClubId = 2,
-                            UserId = "97e8de01-12d1-4329-88d5-31ca1775a2af"
+                            UserId = "faa5d37d-b80b-4e72-a44f-dfb621de9079"
                         },
                         new
                         {
                             ClubUserId = 3,
                             ClubId = 3,
-                            UserId = "97e8de01-12d1-4329-88d5-31ca1775a2af"
+                            UserId = "faa5d37d-b80b-4e72-a44f-dfb621de9079"
                         });
                 });
 
@@ -392,17 +392,17 @@ namespace Prose.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "97e8de01-12d1-4329-88d5-31ca1775a2af",
+                            Id = "faa5d37d-b80b-4e72-a44f-dfb621de9079",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "778e9569-fc4f-4c26-b347-1f4e5c5c1bdf",
+                            ConcurrencyStamp = "c17dc5e9-b4e8-4a99-83ce-b8c288016416",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFbLEnPQGVvQZuk10XQlH0wJh+wO60pp09GIXtNu/RZ1jXREmhepJIYRyXbdzynrZQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIUMe6VgzhNsxCsaopK7zLs7DUMcoOu0idMjGiUcSyZ0ul4VOdo2PxLlVr9CLljlCg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "dec9d08a-c0e8-4aa1-8bee-72db407949ed",
+                            SecurityStamp = "bb2e28c8-acab-497c-80e7-79d0e8760d69",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com",
                             FirstName = "admin",

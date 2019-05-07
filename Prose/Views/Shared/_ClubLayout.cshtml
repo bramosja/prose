@@ -2,6 +2,7 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,10 +26,16 @@
 </head>
 <body>
     <header>
-        <div style="text-align:center">
-            <div>
-                <div>
-                    <a asp-area="" asp-controller="Home" asp-action="Index"><img src="/Lib/Images/ProseLogo.png" alt="Prose Logo" width="200px" /></a>
+        <div style="text-align:center; width:100%; padding: 30px;">
+            <div class="d-flex justify-content-between">
+                <div style="width: 200px;">
+                    &nbsp;
+                </div>
+                <div class="justify-content-md-center">
+                    <a asp-area="" asp-controller="Home" asp-action="Index"><img src="/Lib/Images/ProseLogo.png" alt="Prose Logo" style="width: 200px;" /></a>
+                </div>
+                <div class="flex-column" style="text-align: right; width: 200px;">
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </div>
@@ -39,7 +46,6 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
                         <li>
                             <a class="nav-link text-dark" asp-area="" asp-controller="Books" asp-action="Index">Dashboard</a>
@@ -48,7 +54,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Books" asp-action="Index">View Books</a>
                         </li>
                         <li>
-                            <a class="nav-link text-dark" asp-area="" asp-controller="ClubUsers" asp-action="Index">Members</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="ClubUsers" asp-action="MemberIndex">Members</a>
                         </li>
                         @if (SignInManager.IsSignedIn(User))
                         {
