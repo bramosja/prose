@@ -17,7 +17,8 @@ namespace Prose.Controllers
 
         private readonly ApplicationDbContext _context;
 
-        public ClubUsersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public ClubUsersController(ApplicationDbContext context, 
+                                    UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
             _context = context;
@@ -26,9 +27,12 @@ namespace Prose.Controllers
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         // Get users based on the club Id. This is the result of clicking on the member's button.
-        public async Task<IActionResult> MemberIndex(int id)
+        public async Task<IActionResult> MemberIndex(int clubId)
         {
-            var applicationDbContext = _context.ClubUser.Include(c => c.Club).Where(cu => cu.Club.ClubId == id);
+            var applicationDbContext = _context.ClubUser
+                                        .Include(c => c.Club)
+                                        .Include(c => c.User)
+                                        .Where(cu => cu.Club.ClubId == clubId);
             return View("MemberIndex", await applicationDbContext.ToListAsync());
         }
 
@@ -42,8 +46,8 @@ namespace Prose.Controllers
             }
 
             var clubUser = await _context.ClubUser
-                .Include(u => u.User)
-                .FirstOrDefaultAsync(m => m.ClubUserId == id);
+                            .Include(u => u.User)
+                            .FirstOrDefaultAsync(m => m.ClubUserId == id);
             if (clubUser == null)
             {
                 return NotFound();
@@ -131,8 +135,8 @@ namespace Prose.Controllers
             }
 
             var clubUser = await _context.ClubUser
-                .Include(c => c.Club)
-                .FirstOrDefaultAsync(m => m.ClubUserId == id);
+                                .Include(c => c.Club)
+                                .FirstOrDefaultAsync(m => m.ClubUserId == id);
             if (clubUser == null)
             {
                 return NotFound();

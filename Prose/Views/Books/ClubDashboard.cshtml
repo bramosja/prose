@@ -1,0 +1,71 @@
+﻿@model Prose.Models.Book
+
+@{
+    ViewData["Title"] = "ClubDashboard";
+    Layout = "~/Views/Shared/_ClubLayout.cshtml";
+}
+
+
+<div class="d-flex justify-content-between">
+    <div>
+        <h4>Club Info</h4>
+        <p>@Model.ClubUser.Club.Description</p>
+        <h4>Meeting Info</h4>
+        <p>@Model.ClubUser.Club.Name meets @Model.ClubUser.Club.MeetingFrequency</p>
+    </div>
+    <div>
+        <h2>Current Book</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Author)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Image)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Details)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ISBN)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CurrentlyReading)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.Author)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.Image)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.Details)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ISBN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.CurrentlyReading)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@Model.BookId">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@Model.BookId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@Model.BookId">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

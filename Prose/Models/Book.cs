@@ -28,7 +28,11 @@ namespace Prose.Models
 
         public ClubUser ClubUser { get; set; }
 
+        //to indicate if the book is currently being read
         public bool CurrentlyReading { get; set; } = false;
+
+        //to indicate if a book has already been read
+        public bool PastRead { get; set; } = false;
 
 
     }

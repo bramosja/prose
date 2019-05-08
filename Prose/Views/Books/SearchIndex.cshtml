@@ -1,0 +1,13 @@
+﻿@model Prose.Models.BookRecord
+@{
+    ViewData["Title"] = "SearchIndex";
+    Layout = "~/Views/Shared/_ClubLayout.cshtml";
+}
+
+<h1>Search Results</h1>
+
+@foreach(var i in Model.items)
+{
+    <h5>@i.volumeInfo.title</h5>
+}
+
