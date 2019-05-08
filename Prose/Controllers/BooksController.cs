@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Prose.Data;
 using Prose.Models;
 
@@ -19,11 +21,35 @@ namespace Prose.Controllers
             _context = context;
         }
 
-        // GET: Books
+        // GET all
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Book.Include(b => b.ClubUser);
+            var applicationDbContext = _context.Book
+                .Include(b => b.ClubUser)
+                .Where(b => b.CurrentlyReading == false && b.PastRead == false);
             return View(await applicationDbContext.ToListAsync());
+        }
+
+        // Gets books based on club where the book is not marked as currently reading or past read
+        public async Task<IActionResult> SuggestedBooksIndex(int? clubId)
+        {
+            if (clubId == null)
+            {
+                return NotFound();
+            }
+
+            var applicationDbContext = _context.Book
+                .Include(b => b.ClubUser)
+                .Where(b => b.CurrentlyReading == false
+                        && b.PastRead == false
+                        && b.ClubUser.ClubId == clubId);
+
+            if (applicationDbContext == null)
+            {
+                return NotFound();
+            }
+
+            return View("Index", await applicationDbContext.ToListAsync());
         }
 
         // GET: Books/Details/5
@@ -64,8 +90,14 @@ namespace Prose.Controllers
         // GET: Books/Create
         public IActionResult Create()
         {
-            ViewData["ClubUserId"] = new SelectList(_context.ClubUser, "ClubUserId", "UserId");
             return View();
+        }
+
+        public async Task<IActionResult> SearchApi(string searchName, string searchAuthor)
+        {
+            var searchData = await GoogleBooksAsync(searchName, searchAuthor);
+
+            return View("SearchIndex", searchData);
         }
 
         // POST: Books/Create
@@ -171,6 +203,29 @@ namespace Prose.Controllers
         private bool BookExists(int id)
         {
             return _context.Book.Any(e => e.BookId == id);
+        }
+
+
+        private static async Task<BookRecord> GoogleBooksAsync(string title, string author)
+        {
+            string key = "AIzaSyAF3M0uelGbxyrv6QuVqrHcfFxM3a3nelc";
+
+            string queryName = title;
+
+            string queryAuthor = "";
+
+            if (author != null)
+            {
+                queryAuthor = $"+inauthor:{author}";
+            }
+
+            string queries = $"{queryName}{queryAuthor}";
+
+            using (var client = new HttpClient())
+            {
+                var content = await client.GetStringAsync($"https://www.googleapis.com/books/v1/volumes?q={queries}&key={key}");
+                return JsonConvert.DeserializeObject<BookRecord>(content);
+            }
         }
     }
 }

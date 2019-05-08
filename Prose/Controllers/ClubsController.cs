@@ -18,7 +18,8 @@ namespace Prose.Controllers
 
         private readonly ApplicationDbContext _context;
 
-        public ClubsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public ClubsController(ApplicationDbContext context, 
+                                UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
             _context = context;
@@ -50,14 +51,22 @@ namespace Prose.Controllers
             return View(club);
         }
 
+
+        //Gets the user's list of member clubs
         public async Task<IActionResult> UserClubsList()
         {
+
             var user = await GetCurrentUserAsync();
 
             var ClubData = _context.ClubUser.Include(c => c.Club)
                 .Include(c => c.User)
                 .Where(cu => cu.UserId == user.Id)
                 .ToList();
+
+            if (ClubData == null)
+            {
+                return NotFound();
+            }
 
             return View(ClubData);
     }

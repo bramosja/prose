@@ -242,16 +242,16 @@ namespace Prose.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "FirstName", "LastName" },
-                values: new object[] { "5dc2e3d2-5218-4438-9e9c-642cf35b88db", 0, "154c5e54-12dc-41a7-8d4f-33039dd8e08b", "ApplicationUser", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEDTHpO8TNreq4LOWX97Z7kS2LAfo2UxkGGUN9Yb1DpGjeuLUur39GNk3azl9i/wiww==", null, false, "fd274816-2fd0-49da-aa19-c439110f384a", false, "admin@admin.com", "admin", "admin" });
+                values: new object[] { "df20ea4f-2426-46ac-99ad-9214d8c93a9d", 0, "f0ef25dc-c223-4cd4-8051-d2837511f257", "ApplicationUser", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEAB+LsDQeQxicwaYm5R78/OC9Lzoi2Ytt46LTIwF+Pg30uvMRlmu7V6ssfaLMEYOTg==", null, false, "fe3fc033-2588-4abb-ace7-dd70acce8be3", false, "admin@admin.com", "admin", "admin" });
 
             migrationBuilder.InsertData(
                 table: "Club",
                 columns: new[] { "ClubId", "Description", "Location", "MeetingFrequency", "Name", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "A relaxed group of ladies who all know Asia somehow.", "Nashville, TN", "Once a month", "Bookish Broads", "5dc2e3d2-5218-4438-9e9c-642cf35b88db" },
-                    { 2, "Stephen King themed club.", "Nashville, TN", "Once bimonthly", "Kingers", "5dc2e3d2-5218-4438-9e9c-642cf35b88db" },
-                    { 3, "A social justice oriented book club for all Nashvillians", "Nashville, TN", "Twice a month", "SJ Readers of Nashville", "5dc2e3d2-5218-4438-9e9c-642cf35b88db" }
+                    { 1, "A relaxed group of ladies who all know Asia somehow.", "Nashville, TN", "Once a month", "Bookish Broads", "df20ea4f-2426-46ac-99ad-9214d8c93a9d" },
+                    { 2, "Stephen King themed club.", "Nashville, TN", "Once bimonthly", "Kingers", "df20ea4f-2426-46ac-99ad-9214d8c93a9d" },
+                    { 3, "A social justice oriented book club for all Nashvillians", "Nashville, TN", "Twice a month", "SJ Readers of Nashville", "df20ea4f-2426-46ac-99ad-9214d8c93a9d" }
                 });
 
             migrationBuilder.InsertData(
@@ -267,17 +267,17 @@ namespace Prose.Migrations
             migrationBuilder.InsertData(
                 table: "ClubUser",
                 columns: new[] { "ClubUserId", "ClubId", "UserId" },
-                values: new object[] { 1, 1, "5dc2e3d2-5218-4438-9e9c-642cf35b88db" });
+                values: new object[] { 1, 1, "df20ea4f-2426-46ac-99ad-9214d8c93a9d" });
 
             migrationBuilder.InsertData(
                 table: "ClubUser",
                 columns: new[] { "ClubUserId", "ClubId", "UserId" },
-                values: new object[] { 2, 2, "5dc2e3d2-5218-4438-9e9c-642cf35b88db" });
+                values: new object[] { 2, 2, "df20ea4f-2426-46ac-99ad-9214d8c93a9d" });
 
             migrationBuilder.InsertData(
                 table: "ClubUser",
                 columns: new[] { "ClubUserId", "ClubId", "UserId" },
-                values: new object[] { 3, 3, "5dc2e3d2-5218-4438-9e9c-642cf35b88db" });
+                values: new object[] { 3, 3, "df20ea4f-2426-46ac-99ad-9214d8c93a9d" });
 
             migrationBuilder.InsertData(
                 table: "Book",
