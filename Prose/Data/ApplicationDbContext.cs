@@ -116,7 +116,8 @@ namespace Prose.Data
                    Author = "Min Jin Lee",
                    Details = "A riveting tale about something",
                    ClubUserId = 1,
-                   CurrentlyReading = true
+                   CurrentlyReading = true,
+                   PastRead = false
                },
                new Book()
                {
@@ -125,7 +126,8 @@ namespace Prose.Data
                    Author = "Baby Spice",
                    Details = "An autobiographical look into the life of the sweetest member of the Spice Girls",
                    ClubUserId = 2,
-                   CurrentlyReading = false
+                   CurrentlyReading = false,
+                   PastRead = false
                },
                new Book()
                {
@@ -134,7 +136,8 @@ namespace Prose.Data
                    Author = "George Foreman",
                    Details = "Blah blah",
                    ClubUserId = 1,
-                   CurrentlyReading = false
+                   CurrentlyReading = false,
+                   PastRead = false
                }
             );
         }

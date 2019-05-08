@@ -3,6 +3,11 @@
 @inject UserManager<ApplicationUser> UserManager
 
 
+@{ 
+    string clubId = Context.Request.Query["clubId"].ToString();
+}
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,20 +53,14 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li>
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Books" asp-action="Index">Dashboard</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Books" asp-action="GetCurrentlyReading" asp-route-clubId="@clubId">Dashboard</a>
                         </li>
                         <li>
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Books" asp-action="Index">View Books</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Books" asp-action="Index" asp-route-clubId="@clubId">View Books</a>
                         </li>
                         <li>
-                            <a class="nav-link text-dark" asp-area="" asp-controller="ClubUsers" asp-action="MemberIndex">Members</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="ClubUsers" asp-action="MemberIndex" asp-route-clubId="@clubId">Members</a>
                         </li>
-                        @if (SignInManager.IsSignedIn(User))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Clubs" asp-action="Index">Find a Club</a>
-                            </li>
-                        }
                     </ul>
                 </div>
             </div>
@@ -76,7 +75,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2019 - Prose - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2019 - Pros&eacute; - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
 

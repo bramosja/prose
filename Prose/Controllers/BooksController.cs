@@ -46,12 +46,12 @@ namespace Prose.Controllers
         }
 
         // GET method for the club dashboard which will get the book that is marked as true for currently reading
-        public async Task<IActionResult> GetCurrentlyReading(int id)
+        public async Task<IActionResult> GetCurrentlyReading(int clubId)
         {
             var book = await _context.Book
                 .Include(c => c.ClubUser)
                 .Include(c => c.ClubUser.Club)
-                .Where(b => b.CurrentlyReading == true && b.ClubUser.ClubId == id)
+                .Where(b => b.CurrentlyReading == true && b.ClubUser.ClubId == clubId)
                 .FirstOrDefaultAsync();
             if (book == null)
             {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,12 +13,18 @@ namespace Prose.Controllers
 {
     public class ClubsController : Controller
     {
+
+        private readonly UserManager<ApplicationUser> _userManager;
+
         private readonly ApplicationDbContext _context;
 
-        public ClubsController(ApplicationDbContext context)
+        public ClubsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
+            _userManager = userManager;
             _context = context;
         }
+
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         // GET: Clubs
         public async Task<IActionResult> Index()
@@ -42,6 +49,18 @@ namespace Prose.Controllers
 
             return View(club);
         }
+
+        public async Task<IActionResult> UserClubsList()
+        {
+            var user = await GetCurrentUserAsync();
+
+            var ClubData = _context.ClubUser.Include(c => c.Club)
+                .Include(c => c.User)
+                .Where(cu => cu.UserId == user.Id)
+                .ToList();
+
+            return View(ClubData);
+    }
 
         // GET: Clubs/Create
         public IActionResult Create()

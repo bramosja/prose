@@ -26,9 +26,12 @@ namespace Prose.Controllers
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         // Get users based on the club Id. This is the result of clicking on the member's button.
-        public async Task<IActionResult> MemberIndex(int id)
+        public async Task<IActionResult> MemberIndex(int clubId)
         {
-            var applicationDbContext = _context.ClubUser.Include(c => c.Club).Where(cu => cu.Club.ClubId == id);
+            var applicationDbContext = _context.ClubUser
+                .Include(c => c.Club)
+                .Include(c => c.User)
+                .Where(cu => cu.Club.ClubId == clubId);
             return View("MemberIndex", await applicationDbContext.ToListAsync());
         }
 

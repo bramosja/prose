@@ -225,7 +225,8 @@ namespace Prose.Migrations
                     Details = table.Column<string>(nullable: true),
                     ISBN = table.Column<int>(nullable: false),
                     ClubUserId = table.Column<int>(nullable: false),
-                    CurrentlyReading = table.Column<bool>(nullable: false)
+                    CurrentlyReading = table.Column<bool>(nullable: false),
+                    PastRead = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -241,16 +242,16 @@ namespace Prose.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "FirstName", "LastName" },
-                values: new object[] { "faa5d37d-b80b-4e72-a44f-dfb621de9079", 0, "c17dc5e9-b4e8-4a99-83ce-b8c288016416", "ApplicationUser", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEIUMe6VgzhNsxCsaopK7zLs7DUMcoOu0idMjGiUcSyZ0ul4VOdo2PxLlVr9CLljlCg==", null, false, "bb2e28c8-acab-497c-80e7-79d0e8760d69", false, "admin@admin.com", "admin", "admin" });
+                values: new object[] { "5dc2e3d2-5218-4438-9e9c-642cf35b88db", 0, "154c5e54-12dc-41a7-8d4f-33039dd8e08b", "ApplicationUser", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEDTHpO8TNreq4LOWX97Z7kS2LAfo2UxkGGUN9Yb1DpGjeuLUur39GNk3azl9i/wiww==", null, false, "fd274816-2fd0-49da-aa19-c439110f384a", false, "admin@admin.com", "admin", "admin" });
 
             migrationBuilder.InsertData(
                 table: "Club",
                 columns: new[] { "ClubId", "Description", "Location", "MeetingFrequency", "Name", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "A relaxed group of ladies who all know Asia somehow.", "Nashville, TN", "Once a month", "Bookish Broads", "faa5d37d-b80b-4e72-a44f-dfb621de9079" },
-                    { 2, "Stephen King themed club.", "Nashville, TN", "Once bimonthly", "Kingers", "faa5d37d-b80b-4e72-a44f-dfb621de9079" },
-                    { 3, "A social justice oriented book club for all Nashvillians", "Nashville, TN", "Twice a month", "SJ Readers of Nashville", "faa5d37d-b80b-4e72-a44f-dfb621de9079" }
+                    { 1, "A relaxed group of ladies who all know Asia somehow.", "Nashville, TN", "Once a month", "Bookish Broads", "5dc2e3d2-5218-4438-9e9c-642cf35b88db" },
+                    { 2, "Stephen King themed club.", "Nashville, TN", "Once bimonthly", "Kingers", "5dc2e3d2-5218-4438-9e9c-642cf35b88db" },
+                    { 3, "A social justice oriented book club for all Nashvillians", "Nashville, TN", "Twice a month", "SJ Readers of Nashville", "5dc2e3d2-5218-4438-9e9c-642cf35b88db" }
                 });
 
             migrationBuilder.InsertData(
@@ -266,32 +267,32 @@ namespace Prose.Migrations
             migrationBuilder.InsertData(
                 table: "ClubUser",
                 columns: new[] { "ClubUserId", "ClubId", "UserId" },
-                values: new object[] { 1, 1, "faa5d37d-b80b-4e72-a44f-dfb621de9079" });
+                values: new object[] { 1, 1, "5dc2e3d2-5218-4438-9e9c-642cf35b88db" });
 
             migrationBuilder.InsertData(
                 table: "ClubUser",
                 columns: new[] { "ClubUserId", "ClubId", "UserId" },
-                values: new object[] { 2, 2, "faa5d37d-b80b-4e72-a44f-dfb621de9079" });
+                values: new object[] { 2, 2, "5dc2e3d2-5218-4438-9e9c-642cf35b88db" });
 
             migrationBuilder.InsertData(
                 table: "ClubUser",
                 columns: new[] { "ClubUserId", "ClubId", "UserId" },
-                values: new object[] { 3, 3, "faa5d37d-b80b-4e72-a44f-dfb621de9079" });
+                values: new object[] { 3, 3, "5dc2e3d2-5218-4438-9e9c-642cf35b88db" });
 
             migrationBuilder.InsertData(
                 table: "Book",
-                columns: new[] { "BookId", "Author", "ClubUserId", "CurrentlyReading", "Details", "ISBN", "Image", "Title" },
-                values: new object[] { 1, "Min Jin Lee", 1, true, "A riveting tale about something", 0, null, "Pachinko" });
+                columns: new[] { "BookId", "Author", "ClubUserId", "CurrentlyReading", "Details", "ISBN", "Image", "PastRead", "Title" },
+                values: new object[] { 1, "Min Jin Lee", 1, true, "A riveting tale about something", 0, null, false, "Pachinko" });
 
             migrationBuilder.InsertData(
                 table: "Book",
-                columns: new[] { "BookId", "Author", "ClubUserId", "CurrentlyReading", "Details", "ISBN", "Image", "Title" },
-                values: new object[] { 3, "George Foreman", 1, false, "Blah blah", 0, null, "George Foreman: Life and Tales" });
+                columns: new[] { "BookId", "Author", "ClubUserId", "CurrentlyReading", "Details", "ISBN", "Image", "PastRead", "Title" },
+                values: new object[] { 3, "George Foreman", 1, false, "Blah blah", 0, null, false, "George Foreman: Life and Tales" });
 
             migrationBuilder.InsertData(
                 table: "Book",
-                columns: new[] { "BookId", "Author", "ClubUserId", "CurrentlyReading", "Details", "ISBN", "Image", "Title" },
-                values: new object[] { 2, "Baby Spice", 2, false, "An autobiographical look into the life of the sweetest member of the Spice Girls", 0, null, "Sugar" });
+                columns: new[] { "BookId", "Author", "ClubUserId", "CurrentlyReading", "Details", "ISBN", "Image", "PastRead", "Title" },
+                values: new object[] { 2, "Baby Spice", 2, false, "An autobiographical look into the life of the sweetest member of the Spice Girls", 0, null, false, "Sugar" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

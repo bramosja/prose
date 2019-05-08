@@ -1,4 +1,4 @@
-Support for ASP.NET Core Identity was added to your project
+﻿Support for ASP.NET Core Identity was added to your project
 - The code for adding Identity to your project was generated under Areas/Identity.
 
 Configuration of the Identity related services can be found in the Areas/Identity/IdentityHostingStartup.cs file.
