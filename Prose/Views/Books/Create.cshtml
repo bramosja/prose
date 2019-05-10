@@ -4,6 +4,10 @@
     Layout = "~/Views/Shared/_ClubLayout.cshtml";
 }
 
+@{
+    string clubId = Context.Request.Query["clubId"].ToString();
+}
+
 <h1>Search</h1>
 
 <h4>Book</h4>
@@ -18,9 +22,12 @@
             <div class="form-group">
                 <label name="searchAuthor" class="control-label">Search Author</label>
                 <input name="searchAuthor" class="form-control" />
+
             </div>
+            
             <div class="form-group">
-                <input type="submit" value="Search" asp-controller="Books" asp-action="SearchApi" class="btn btn-primary" />
+                <input name="clubId" type="hidden" value="@clubId"/>
+                <input type="submit" value="Search" asp-controller="Books" asp-action="SearchApi" asp-route-clubId="clubId" class="btn btn-primary" />
             </div>
         </form>
     </div>

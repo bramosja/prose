@@ -204,8 +204,6 @@ namespace Prose.Migrations
 
                     b.Property<string>("Details");
 
-                    b.Property<int>("ISBN");
-
                     b.Property<string>("Image");
 
                     b.Property<bool>("PastRead");
@@ -227,7 +225,6 @@ namespace Prose.Migrations
                             ClubUserId = 1,
                             CurrentlyReading = true,
                             Details = "A riveting tale about something",
-                            ISBN = 0,
                             PastRead = false,
                             Title = "Pachinko"
                         },
@@ -238,7 +235,6 @@ namespace Prose.Migrations
                             ClubUserId = 2,
                             CurrentlyReading = false,
                             Details = "An autobiographical look into the life of the sweetest member of the Spice Girls",
-                            ISBN = 0,
                             PastRead = false,
                             Title = "Sugar"
                         },
@@ -249,7 +245,6 @@ namespace Prose.Migrations
                             ClubUserId = 1,
                             CurrentlyReading = false,
                             Details = "Blah blah",
-                            ISBN = 0,
                             PastRead = false,
                             Title = "George Foreman: Life and Tales"
                         });
@@ -285,7 +280,7 @@ namespace Prose.Migrations
                             Location = "Nashville, TN",
                             MeetingFrequency = "Once a month",
                             Name = "Bookish Broads",
-                            UserId = "df20ea4f-2426-46ac-99ad-9214d8c93a9d"
+                            UserId = "26ca7975-c7ca-4061-b623-5b88ac9bd2fe"
                         },
                         new
                         {
@@ -294,7 +289,7 @@ namespace Prose.Migrations
                             Location = "Nashville, TN",
                             MeetingFrequency = "Once bimonthly",
                             Name = "Kingers",
-                            UserId = "df20ea4f-2426-46ac-99ad-9214d8c93a9d"
+                            UserId = "26ca7975-c7ca-4061-b623-5b88ac9bd2fe"
                         },
                         new
                         {
@@ -303,7 +298,7 @@ namespace Prose.Migrations
                             Location = "Nashville, TN",
                             MeetingFrequency = "Twice a month",
                             Name = "SJ Readers of Nashville",
-                            UserId = "df20ea4f-2426-46ac-99ad-9214d8c93a9d"
+                            UserId = "26ca7975-c7ca-4061-b623-5b88ac9bd2fe"
                         });
                 });
 
@@ -331,19 +326,19 @@ namespace Prose.Migrations
                         {
                             ClubUserId = 1,
                             ClubId = 1,
-                            UserId = "df20ea4f-2426-46ac-99ad-9214d8c93a9d"
+                            UserId = "26ca7975-c7ca-4061-b623-5b88ac9bd2fe"
                         },
                         new
                         {
                             ClubUserId = 2,
                             ClubId = 2,
-                            UserId = "df20ea4f-2426-46ac-99ad-9214d8c93a9d"
+                            UserId = "26ca7975-c7ca-4061-b623-5b88ac9bd2fe"
                         },
                         new
                         {
                             ClubUserId = 3,
                             ClubId = 3,
-                            UserId = "df20ea4f-2426-46ac-99ad-9214d8c93a9d"
+                            UserId = "26ca7975-c7ca-4061-b623-5b88ac9bd2fe"
                         });
                 });
 
@@ -397,17 +392,17 @@ namespace Prose.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "df20ea4f-2426-46ac-99ad-9214d8c93a9d",
+                            Id = "26ca7975-c7ca-4061-b623-5b88ac9bd2fe",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f0ef25dc-c223-4cd4-8051-d2837511f257",
+                            ConcurrencyStamp = "e67ab965-881f-45cc-9db1-82170c51f448",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAB+LsDQeQxicwaYm5R78/OC9Lzoi2Ytt46LTIwF+Pg30uvMRlmu7V6ssfaLMEYOTg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECkODtN3UywhvLbizI4J398S/XkU2QOWe6NFQi/CkMKD6ZfFokKxLYwilcBbfGiqFA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "fe3fc033-2588-4abb-ace7-dd70acce8be3",
+                            SecurityStamp = "9790029c-95d3-45f8-bbeb-9a8bc628f9e8",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com",
                             FirstName = "admin",

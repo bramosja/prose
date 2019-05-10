@@ -58,10 +58,11 @@ namespace Prose.Controllers
 
             var user = await GetCurrentUserAsync();
 
-            var ClubData = _context.ClubUser.Include(c => c.Club)
-                .Include(c => c.User)
-                .Where(cu => cu.UserId == user.Id)
-                .ToList();
+            var ClubData = _context.ClubUser
+                            .Include(c => c.Club)
+                            .Include(c => c.User)
+                            .Where(cu => cu.UserId == user.Id)
+                            .ToList();
 
             if (ClubData == null)
             {

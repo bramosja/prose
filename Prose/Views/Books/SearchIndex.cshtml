@@ -4,10 +4,77 @@
     Layout = "~/Views/Shared/_ClubLayout.cshtml";
 }
 
-<h1>Search Results</h1>
-
-@foreach(var i in Model.items)
-{
-    <h5>@i.volumeInfo.title</h5>
+@{
+    string clubId = Context.Request.Query["clubId"].ToString();
 }
+
+<div class="d-flex justify-content-around">
+    <div>
+        <h1>Search Results</h1>
+        <div class="d-flex flex-wrap justify-content-between">
+            @foreach (var i in Model.items)
+            {
+                <form asp-action="SuggestBookPost" method="post">
+                    <div style="width: 250px; margin: 10px 5px;">
+                        <div>
+                            <div class="text-center">
+                                <img  src="@i.volumeInfo.imageLinks.thumbnail" alt="book cover image" />
+                            </div>
+                            <div>
+                                <div>
+                                    <div>
+                                        <h5 class="text-wrap">@i.volumeInfo.title</h5>
+                                    </div>
+                                    <div>
+                                        @if (i.volumeInfo.authors.Count() >= 2)
+                                        {
+                                            <p>Multiple Authors</p>
+
+                                            @*@foreach(var a in i.volumeInfo.authors)
+                                                {
+                                                    <p>@a </p>
+                                                }*@
+
+                                        }
+                                        else if (i.volumeInfo.authors.Count() == 1)
+                                        {
+                                            @foreach (var a in i.volumeInfo.authors)
+                                            {
+
+                                                <p name="Author">Author: @a</p>
+                                                <input name="author" type="hidden" value="@a" />
+
+                                            }
+                                        }
+                                        else
+                                        {
+
+                                            <p class="font-italic card-text">No known author</p>
+
+                                        }
+
+                                    </div>
+                                    <div name="Details">
+                                        <p>@i.volumeInfo.description</p>
+                                        @foreach (var b in i.volumeInfo.industryIdentifiers)
+                                        {
+                                            <p>@b.identifier</p>
+                                        }
+                                    </div>
+                                    <div>
+                                        <input name="clubId" type="hidden" value="@clubId" />
+                                        <input name="title" type="hidden" value="@i.volumeInfo.title" />
+                                        <input name="image" type="hidden" value="@i.volumeInfo.imageLinks.thumbnail" />
+                                        <input name="details" type="hidden" value="@i.volumeInfo.description" />
+                                        <input type="submit" value="Suggest" asp-controller="Books" asp-action="SuggestBookPost" asp-route-clubId="clubId">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            }
+        </div>
+    </div>
+</div>
 

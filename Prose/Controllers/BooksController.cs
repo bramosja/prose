@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,12 +15,19 @@ namespace Prose.Controllers
 {
     public class BooksController : Controller
     {
+
+        private readonly UserManager<ApplicationUser> _userManager;
+
         private readonly ApplicationDbContext _context;
 
-        public BooksController(ApplicationDbContext context)
+        public BooksController(ApplicationDbContext context,
+                                UserManager<ApplicationUser> userManager)
         {
+            _userManager = userManager;
             _context = context;
         }
+
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         // GET all
         public async Task<IActionResult> Index()
@@ -93,28 +101,50 @@ namespace Prose.Controllers
             return View();
         }
 
-        public async Task<IActionResult> SearchApi(string searchName, string searchAuthor)
+
+
+        public async Task<IActionResult> SearchApi(string searchName, string searchAuthor, int clubId)
         {
             var searchData = await GoogleBooksAsync(searchName, searchAuthor);
 
             return View("SearchIndex", searchData);
         }
 
-        // POST: Books/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+
+        // This post takes the input from the selected book in the SearchIndex view and converts it to a book post
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BookId,Title,Author,Image,Details,ISBN,ClubUserId,CurrentlyReading")] Book book)
+        public async Task<IActionResult> SuggestBookPost(string title, string author, string image, string details, int clubId)
         {
+
+            var user = await GetCurrentUserAsync();
+
+            var clubUser = await _context.ClubUser
+                                .Where(cu => cu.ClubId == clubId 
+                                        && cu.UserId == user.Id)
+                                .FirstOrDefaultAsync();
+
+
+            //setting the details based on the selected book
+            Book savedBook = new Book()
+            {
+                Title = title,
+                Author = author,
+                Image = image,
+                Details = details,
+                ClubUserId = clubUser.ClubUserId
+                
+            };
+
             if (ModelState.IsValid)
             {
-                _context.Add(book);
+                _context.Add(savedBook);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
-            ViewData["ClubUserId"] = new SelectList(_context.ClubUser, "ClubUserId", "UserId", book.ClubUserId);
-            return View(book);
+            ViewData["ClubUserId"] = new SelectList(_context.ClubUser, "ClubUserId", "UserId", savedBook.ClubUserId);
+            return View(savedBook);
         }
 
         // GET: Books/Edit/5
@@ -139,7 +169,7 @@ namespace Prose.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BookId,Title,Author,Image,Details,ISBN,ClubUserId,CurrentlyReading")] Book book)
+        public async Task<IActionResult> Edit(int id, [Bind("BookId,Title,Author,Image,Details,ClubUserId,CurrentlyReading")] Book book)
         {
             if (id != book.BookId)
             {

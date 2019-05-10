@@ -28,9 +28,6 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Details)
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ISBN)
-                    </th>
                     <th></th>
                 </tr>
             </thead>
@@ -48,9 +45,6 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Details)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ISBN)
                     </td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.BookId">Vote</a> |
