@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Prose.Models.BookViewModels.BooksIndexViewModel>
+
+@{
+    ViewData["Title"] = "SuggestedBooksIndex";
+    Layout = "~/Views/Shared/_ClubLayout.cshtml";
+}
+
+@{
+    string clubId = Context.Request.Query["clubId"].ToString();
+}
+
+<div class="d-flex justify-content-center">
+    <div style="width:800px;">
+        <h1>Suggested Books</h1>
+        <p>
+            <a asp-action="Create">Create New</a>
+        </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Book.Image)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Book.Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Book.Author)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Book.Details)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <img src="@item.Book.Image" alt="book cover image for @item.Book.Title" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Book.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Book.Author)
+                        </td>
+                        <td class="text">
+                            <span>
+                                @Html.DisplayFor(modelItem => item.Book.Details)
+                            </span>
+                        </td>
+                        <td>
+                            <a asp-action="Create" asp-controller="Votes" asp-route-bookId="@item.Book.BookId" asp-route-clubId="@clubId">Vote</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Book.BookId">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
