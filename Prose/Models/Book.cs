@@ -21,8 +21,6 @@ namespace Prose.Models
 
         public string Details { get; set; }
 
-        public int ISBN { get; set; }
-
         [Required]
         public int ClubUserId { get; set; }
 

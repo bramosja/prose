@@ -29,7 +29,7 @@ namespace Prose.Models
         public string publisher { get; set; }
         public string publishedDate { get; set; }
         public string description { get; set; }
-        public Industryidentifier[] industryIdentifiers { get; set; }
+        public List<Industryidentifier> industryIdentifiers { get; set; }
         public Readingmodes readingModes { get; set; }
         public int pageCount { get; set; }
         public string printType { get; set; }

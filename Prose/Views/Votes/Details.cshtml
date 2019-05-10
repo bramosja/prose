@@ -1,0 +1,31 @@
+﻿@model Prose.Models.Vote
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_ClubLayout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Vote</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ClubUserId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ClubUserId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.BookId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.BookId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.VoteId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

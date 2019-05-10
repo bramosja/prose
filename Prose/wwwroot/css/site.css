@@ -68,3 +68,17 @@ a:link {
 a:visited {
     color: #B76E79;
 }
+
+.table td.text {
+    max-width: 300px;
+    max-height: 100px;
+    min-height: 100px;
+}
+
+.table td.text span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    max-width: 100%;
+}
