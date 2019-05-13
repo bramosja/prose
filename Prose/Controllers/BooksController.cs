@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using Prose.Data;
 using Prose.Models;
 using Prose.Models.BookViewModels;
+using Prose.Models.ClubViewModels;
 
 namespace Prose.Controllers
 {
@@ -38,11 +39,17 @@ namespace Prose.Controllers
                 return NotFound();
             }
 
+            var currentUser = await GetCurrentUserAsync();
+
+            var club = await _context.Club.Where(c => c.ClubId == clubId).FirstOrDefaultAsync();
+
+            //this call gets all suggested books and includes all votes. It then orders the books by greatest number of votes to fewest number of votes.
             var applicationDbContext = await (
                                                 from b in _context.Book
                                                     .Include(b => b.ClubUser)
                                                     .Where(b => b.CurrentlyReading == false
-                                                            && b.PastRead == false)
+                                                            && b.PastRead == false 
+                                                            && b.ClubUser.ClubId == clubId)
                                                 from v in _context.Vote.Where(v => v.BookId == b.BookId 
                                                     && b.ClubUser.ClubId == clubId)
                                                     .DefaultIfEmpty()
@@ -54,8 +61,10 @@ namespace Prose.Controllers
                                                         b.Details,
                                                         b.Image } 
                                                         into grouped
-                                                select new BooksIndexViewModel
+                                                select new BooksIndexViewModel()
                                                 {
+                                                    OwnerId = club.UserId,
+                                                    CurrentUserId = currentUser.Id,
                                                     VoteTotal = grouped.Where(gr => gr.v != null).Count(),
                                                     Book = new Book
                                                     {
@@ -67,7 +76,7 @@ namespace Prose.Controllers
                                                         Image = grouped.Key.Image
                                                     }
                                                 }).OrderByDescending(v => v.VoteTotal).ToListAsync();
-                
+
 
             if (applicationDbContext == null)
             {
@@ -104,12 +113,17 @@ namespace Prose.Controllers
                 .Include(c => c.ClubUser.Club)
                 .Where(b => b.CurrentlyReading == true && b.ClubUser.ClubId == clubId)
                 .FirstOrDefaultAsync();
-            if (book == null)
-            {
-                return NotFound();
-            }
 
-            return View("ClubDashboard", book);
+            var club = await _context.Club
+                        .Where(c => c.ClubId == clubId).FirstOrDefaultAsync();
+
+            ClubBookIndexViewModel clubBook = new ClubBookIndexViewModel()
+            {
+                Book = book,
+                Club = club
+            };
+
+            return View("ClubDashboard", clubBook);
         }
 
         // GET: Books/Create
@@ -162,6 +176,42 @@ namespace Prose.Controllers
             }
             ViewData["ClubUserId"] = new SelectList(_context.ClubUser, "ClubUserId", "UserId", savedBook.ClubUserId);
             return View(savedBook);
+        }
+
+
+        public async Task<IActionResult> CurrentlyReading(int bookId, int clubId)
+        {
+
+            var getBook = await _context.Book
+                            .Where(b => b.BookId == bookId)
+                            .FirstOrDefaultAsync();
+
+            Book book = new Book();
+            book = getBook;
+
+            getBook.CurrentlyReading = true;
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(book);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!BookExists(book.BookId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("GetCurrentlyReading", clubId);
+            }
+            return View(book);
         }
 
         // GET: Books/Edit/5

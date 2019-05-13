@@ -9,6 +9,10 @@ namespace Prose.Models.BookViewModels
     {
         public Book Book { get; set; }
 
+        public string OwnerId { get; set; }
+
+        public string CurrentUserId { get; set; }
+
         public int? VoteTotal { get; set; }
     }
 }

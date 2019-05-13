@@ -85,8 +85,13 @@ namespace Prose.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ClubId,Name,Location,Description,MeetingFrequency,UserId")] Club club)
         {
+            ModelState.Remove("UserId");
+
+            var user = await GetCurrentUserAsync();
+
             if (ModelState.IsValid)
             {
+                club.UserId = user.Id;
                 _context.Add(club);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

@@ -52,9 +52,27 @@
                             </span>
                         </td>
                         <td>
-                            <a asp-action="Create" asp-controller="Votes" asp-route-bookId="@item.Book.BookId" asp-route-clubId="@clubId">Vote</a> |
-                            <a asp-action="Delete" asp-route-id="@item.Book.BookId">Delete</a>
+                            <ul class="list-group small">
+                                <li class="list-group-item">
+                                    <a asp-action="Create" asp-controller="Votes" asp-route-bookId="@item.Book.BookId" asp-route-clubId="@clubId">Vote</a> 
+                                </li>
+                                @if(item.CurrentUserId == item.Book.ClubUser.UserId)
+                                {
+                                    <li class="list-group-item">
+                                        <a asp-action="Delete" asp-route-id="@item.Book.BookId">Delete</a>
+                                    </li>
+                                }
+
+                                @if(item.CurrentUserId == item.OwnerId)
+                                {
+                                    <li class="list-group-item">
+                                        <a asp-action="CurrentlyReading" asp-controller="Books" asp-route-bookId="@item.Book.BookId" asp-route-clubId="@clubId">Next Read</a>
+                                    </li>
+                                }
+                            </ul>
                         </td>
+
+
                     </tr>
                 }
             </tbody>

@@ -26,31 +26,34 @@
                                         <h5 class="text-wrap">@i.volumeInfo.title</h5>
                                     </div>
                                     <div>
-                                        @if (i.volumeInfo.authors.Count() >= 2)
+                                        @if(i.volumeInfo.authors != null)
                                         {
-                                            <p>Multiple Authors</p>
-
-                                            @*@foreach(var a in i.volumeInfo.authors)
-                                                {
-                                                    <p>@a </p>
-                                                }*@
-
-                                        }
-                                        else if (i.volumeInfo.authors.Count() == 1)
-                                        {
-                                            @foreach (var a in i.volumeInfo.authors)
+                                            @if (i.volumeInfo.authors.Count() >= 2)
                                             {
+                                                <p>Multiple Authors</p>
 
-                                                <p name="Author">Author: @a</p>
-                                                <input name="author" type="hidden" value="@a" />
+                                                @*@foreach(var a in i.volumeInfo.authors)
+                                                    {
+                                                        <p>@a </p>
+                                                    }*@
 
                                             }
-                                        }
-                                        else
-                                        {
+                                            else if (i.volumeInfo.authors.Count() == 1)
+                                            {
+                                                @foreach (var a in i.volumeInfo.authors)
+                                                {
 
-                                            <p class="font-italic card-text">No known author</p>
+                                                    <p name="Author">Author: @a</p>
+                                                    <input name="author" type="hidden" value="@a" />
 
+                                                }
+                                            }
+                                            else
+                                            {
+
+                                                <p class="font-italic card-text">No known author</p>
+
+                                            }
                                         }
 
                                     </div>
