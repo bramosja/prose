@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Prose.Models.ClubUser>
+﻿@model Prose.Models.ClubViewModels.ClubUserIndexViewModel
 
 @{
     ViewData["Title"] = "UserClubsList";
@@ -8,28 +8,28 @@
 <h1>My Clubs</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Create a Club</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Club.Name)
+                @Html.DisplayNameFor(model => model.ClubUsers[0].Club.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Club.Location)
+                @Html.DisplayNameFor(model => model.ClubUsers[0].Club.Location)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Club.Description)
+                @Html.DisplayNameFor(model => model.ClubUsers[0].Club.Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Club.MeetingFrequency)
+                @Html.DisplayNameFor(model => model.ClubUsers[0].Club.MeetingFrequency)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.ClubUsers) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Club.Name)
@@ -44,9 +44,12 @@
                 @Html.DisplayFor(modelItem => item.Club.MeetingFrequency)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ClubId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ClubId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ClubId">Delete</a>
+                @if(item.Club.UserId == Model.CurrentUserId)
+                {
+                    <a asp-action="Edit" asp-route-id="@item.ClubId">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.ClubId">Delete</a>
+                }
+                <a asp-action="Details" asp-route-id="@item.ClubId">Details</a>
             </td>
         </tr>
 }

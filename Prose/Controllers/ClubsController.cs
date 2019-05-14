@@ -101,12 +101,18 @@ namespace Prose.Controllers
                             .Where(cu => cu.UserId == user.Id)
                             .ToList();
 
+            ClubUserIndexViewModel ClubUserIndexViewModel = new ClubUserIndexViewModel
+            {
+                ClubUsers = ClubData,
+                CurrentUserId = user.Id
+            };
+
             if (ClubData == null)
             {
                 return NotFound();
             }
 
-            return View(ClubData);
+            return View(ClubUserIndexViewModel);
     }
 
         // GET: Clubs/Create
@@ -139,13 +145,15 @@ namespace Prose.Controllers
         // GET: Clubs/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            var user = await GetCurrentUserAsync();
+
             if (id == null)
             {
                 return NotFound();
             }
 
             var club = await _context.Club.FindAsync(id);
-            if (club == null)
+            if (club == null || club.UserId != user.Id)
             {
                 return NotFound();
             }
@@ -157,8 +165,12 @@ namespace Prose.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ClubId,Name,Location,Description,MeetingFrequency,UserId")] Club club)
+        public async Task<IActionResult> Edit(int id, Club club)
         {
+            ModelState.Remove("UserId");
+
+            var user = await GetCurrentUserAsync();
+
             if (id != club.ClubId)
             {
                 return NotFound();
@@ -168,6 +180,7 @@ namespace Prose.Controllers
             {
                 try
                 {
+                    club.UserId = user.Id;
                     _context.Update(club);
                     await _context.SaveChangesAsync();
                 }
@@ -190,6 +203,8 @@ namespace Prose.Controllers
         // GET: Clubs/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            var user = await GetCurrentUserAsync();
+
             if (id == null)
             {
                 return NotFound();
@@ -197,7 +212,7 @@ namespace Prose.Controllers
 
             var club = await _context.Club
                 .FirstOrDefaultAsync(m => m.ClubId == id);
-            if (club == null)
+            if (club == null || user.Id != club.UserId)
             {
                 return NotFound();
             }

@@ -5,12 +5,9 @@ using System.Threading.Tasks;
 
 namespace Prose.Models.ClubViewModels
 {
-    public class ClubBookIndexViewModel
+    public class ClubUserIndexViewModel
     {
-        public Book Book { get; set; }
-        
-        public Club Club { get; set; }
-
+        public List<ClubUser> ClubUsers { get; set; }
         public string CurrentUserId { get; set; }
     }
 }

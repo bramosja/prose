@@ -3,60 +3,68 @@
 @{
     ViewData["Title"] = "ClubDashboard";
     Layout = "~/Views/Shared/_ClubLayout.cshtml";
+    string clubId = Context.Request.Query["clubId"].ToString();
 }
 
 
-
-@if (Model.Book == null)
-{
-<div class="d-flex justify-content-between">
+<div>
     <div>
         <h4>Club Info</h4>
         <p>@Model.Club.Description</p>
         <h4>Meeting Info</h4>
-        <p>@Model.Club.Name meets @Model.Club.MeetingFrequency</p>
-    </div>
-    <div>
-        <h2>Current Book</h2>
-        <p>No book has been selected to currently read</p>
+        <p>@Model.Club.Name meets @Model.Club.MeetingFrequency.ToLower()</p>
     </div>
 </div>
+
+@if (Model.Book == null)
+{
+    <div class="d-flex justify-content-around">
+        <div>
+            <h2>Current Book</h2>
+            <p>No book has been selected to currently read</p>
+        </div>
+    </div>
 }
 else
 {
-    <div class="d-flex justify-content-between">
-        <div>
-            <h4>Club Info</h4>
-            <p>@Model.Club.Description</p>
-            <h4>Meeting Info</h4>
-            <p>@Model.Club.Name meets @Model.Club.MeetingFrequency.ToLower()</p>
-        </div>
-        <div>
+    <div class="d-flex justify-content-around">
+        <div style="width: 30%;">
             <h2>Current Book</h2>
             <table class="table">
                 <tbody>
-                    <tr>
-                        <td>
-                            <img href="@Model.Book.Image" alt="Image for @Model.Book.Title"/>
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => modelItem.Book.Title)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => modelItem.Book.Author)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => modelItem.Book.Details)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => modelItem.Book.CurrentlyReading)
-                        </td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@Model.Book.BookId">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@Model.Book.BookId">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@Model.Book.BookId">Delete</a>
-                        </td>
-                    </tr>
+                    <form method="get">
+                        <tr>
+                            <td>
+                                <img src="@Model.Book.Image" alt="Image for @Model.Book.Title" />
+                            </td>
+                            <td>
+                                @if(Model.Book.Title != null)
+                                {
+                                    @Html.DisplayFor(modelItem => modelItem.Book.Title)
+                                }
+                            </td>
+                            <td>
+                                @if (Model.Book.Author != null)
+                                {
+                                    @Html.DisplayFor(modelItem => modelItem.Book.Author)
+                                }
+                            </td>
+                            <td>
+                                @if(Model.Book.Details != null)
+                                {
+                                    @Html.DisplayFor(modelItem => modelItem.Book.Details)
+                                }
+                            </td>
+                            <td>
+                                <input name="bookId" type="hidden" value="@Model.Book.BookId" />
+                                <input name="clubId" type="hidden" value="@Model.Club.ClubId" />
+                                @if(Model.CurrentUserId == Model.Club.UserId)
+                                {
+                                    <button type="submit" asp-action="IsPastRead" asp-route-clubId="@clubId">Remove From Currently Reading</button>
+                                }
+                            </td>
+                        </tr>
+                    </form>
                 </tbody>
             </table>
         </div>
