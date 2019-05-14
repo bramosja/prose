@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Prose.Data;
 using Prose.Models;
+using Prose.Models.ClubViewModels;
 
 namespace Prose.Controllers
 {
@@ -30,7 +31,16 @@ namespace Prose.Controllers
         // GET: Clubs
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Club.ToListAsync());
+            var user = await GetCurrentUserAsync();
+            var clubs = await _context.Club.ToListAsync();
+
+            ClubIndexViewModel ClubsVM = new ClubIndexViewModel
+            {
+                Clubs = clubs,
+                CurrentUserId = user.Id
+            };
+
+            return View(ClubsVM);
         }
 
         // GET: Clubs/Details/5
