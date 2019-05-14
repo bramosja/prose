@@ -39,7 +39,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.MeetingFrequency)
             </td>
-            @*Create a constraint that limits these abilities to only the user that has created the club, and an if statement for those who are in the club to be able to see only the club details*@
+            @*Constraint limits the ability to edit or delete a club to the user that created the club*@
             <td>
                 <a asp-action="Details" asp-route-id="@item.ClubId">Club Details</a>
                 @if(item.UserId == Model.CurrentUserId)

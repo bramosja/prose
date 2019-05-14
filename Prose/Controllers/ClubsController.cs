@@ -46,19 +46,46 @@ namespace Prose.Controllers
         // GET: Clubs/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+
+            var user = await GetCurrentUserAsync();
+
             if (id == null)
             {
                 return NotFound();
             }
 
+            //getting each club user that includes the club id passed from the view
+            var members = await _context.ClubUser
+                                    .Include(cu => cu.User)
+                                    .Where(cu => cu.ClubId == id)
+                                    .ToListAsync();
+
+            List<ClubUser> clubUsers = new List<ClubUser>();
+
+            clubUsers = members;
+            
             var club = await _context.Club
                 .FirstOrDefaultAsync(m => m.ClubId == id);
+
+            Club clubWithMembers = new Club();
+
+            clubWithMembers = club;
+
+            clubWithMembers.ClubUsers = clubUsers;
+
+
+            ClubDetailsViewModel clubDetailsViewModel = new ClubDetailsViewModel
+            {
+                Club = clubWithMembers,
+                CurrentUserId = user.Id
+            };
+
             if (club == null)
             {
                 return NotFound();
             }
 
-            return View(club);
+            return View(clubDetailsViewModel);
         }
 
 
