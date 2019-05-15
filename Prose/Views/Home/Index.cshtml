@@ -1,7 +1,24 @@
-﻿@{
+﻿@model Prose.Models.NYTBooksAPI
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to Pros&eacute;</h1>
+
+<div class="container indexContainer">
+    <div class="text-center">
+        <h2 class="display-6">NYT Top Fiction Books This Week</h2>
+        <div class="d-flex justify-content-between flex-wrap">
+            @foreach(var b in Model.results.books)
+            {
+                <div>
+                
+                        <img style="width:50%;" src="@b.book_image" alt="book image"/>
+                        <h6 class="font-weight-bold">@b.title</h6>
+                        <p>@b.author</p>
+                </div>
+            }
+        </div>
+
+    </div>
 </div>
+

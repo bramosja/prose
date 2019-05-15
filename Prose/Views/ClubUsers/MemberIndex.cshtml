@@ -5,33 +5,36 @@
     Layout = "~/Views/Shared/_ClubLayout.cshtml";
 }
 
-<h1>MemberIndex</h1>
+<div class="container indexContainer">
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.User.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User.LastName)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.LastName)
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <h2>MemberIndex</h2>
+
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.User.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.User.LastName)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.LastName)
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+</div>

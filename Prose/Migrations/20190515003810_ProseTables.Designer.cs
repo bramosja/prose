@@ -10,7 +10,7 @@ using Prose.Data;
 namespace Prose.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190509192956_ProseTables")]
+    [Migration("20190515003810_ProseTables")]
     partial class ProseTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -282,7 +282,7 @@ namespace Prose.Migrations
                             Location = "Nashville, TN",
                             MeetingFrequency = "Once a month",
                             Name = "Bookish Broads",
-                            UserId = "26ca7975-c7ca-4061-b623-5b88ac9bd2fe"
+                            UserId = "fdb2f85d-5fba-49e1-8731-3e887bfd5834"
                         },
                         new
                         {
@@ -291,7 +291,7 @@ namespace Prose.Migrations
                             Location = "Nashville, TN",
                             MeetingFrequency = "Once bimonthly",
                             Name = "Kingers",
-                            UserId = "26ca7975-c7ca-4061-b623-5b88ac9bd2fe"
+                            UserId = "fdb2f85d-5fba-49e1-8731-3e887bfd5834"
                         },
                         new
                         {
@@ -300,7 +300,7 @@ namespace Prose.Migrations
                             Location = "Nashville, TN",
                             MeetingFrequency = "Twice a month",
                             Name = "SJ Readers of Nashville",
-                            UserId = "26ca7975-c7ca-4061-b623-5b88ac9bd2fe"
+                            UserId = "fdb2f85d-5fba-49e1-8731-3e887bfd5834"
                         });
                 });
 
@@ -328,19 +328,19 @@ namespace Prose.Migrations
                         {
                             ClubUserId = 1,
                             ClubId = 1,
-                            UserId = "26ca7975-c7ca-4061-b623-5b88ac9bd2fe"
+                            UserId = "fdb2f85d-5fba-49e1-8731-3e887bfd5834"
                         },
                         new
                         {
                             ClubUserId = 2,
                             ClubId = 2,
-                            UserId = "26ca7975-c7ca-4061-b623-5b88ac9bd2fe"
+                            UserId = "fdb2f85d-5fba-49e1-8731-3e887bfd5834"
                         },
                         new
                         {
                             ClubUserId = 3,
                             ClubId = 3,
-                            UserId = "26ca7975-c7ca-4061-b623-5b88ac9bd2fe"
+                            UserId = "fdb2f85d-5fba-49e1-8731-3e887bfd5834"
                         });
                 });
 
@@ -394,17 +394,17 @@ namespace Prose.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "26ca7975-c7ca-4061-b623-5b88ac9bd2fe",
+                            Id = "fdb2f85d-5fba-49e1-8731-3e887bfd5834",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e67ab965-881f-45cc-9db1-82170c51f448",
+                            ConcurrencyStamp = "1eccaaeb-b0b1-423e-b40b-dc5cd5fe00c4",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAECkODtN3UywhvLbizI4J398S/XkU2QOWe6NFQi/CkMKD6ZfFokKxLYwilcBbfGiqFA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEG63D8WgVV2M0Uo3qvZyLyPlwqnVW4zjGFx1oykLzRfpSBJJUuRTiDZgDukC6y7Xlg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9790029c-95d3-45f8-bbeb-9a8bc628f9e8",
+                            SecurityStamp = "90b449fb-0919-4d4e-8e56-adfc1a3352cc",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com",
                             FirstName = "admin",
