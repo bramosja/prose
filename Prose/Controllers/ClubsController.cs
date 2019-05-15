@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Prose.Data;
 using Prose.Models;
+using Prose.Models.ClubViewModels;
 
 namespace Prose.Controllers
 {
@@ -30,25 +31,61 @@ namespace Prose.Controllers
         // GET: Clubs
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Club.ToListAsync());
+            var user = await GetCurrentUserAsync();
+            var clubs = await _context.Club.ToListAsync();
+
+            ClubIndexViewModel ClubsVM = new ClubIndexViewModel
+            {
+                Clubs = clubs,
+                CurrentUserId = user.Id
+            };
+
+            return View(ClubsVM);
         }
 
         // GET: Clubs/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+
+            var user = await GetCurrentUserAsync();
+
             if (id == null)
             {
                 return NotFound();
             }
 
+            //getting each club user that includes the club id passed from the view
+            var members = await _context.ClubUser
+                                    .Include(cu => cu.User)
+                                    .Where(cu => cu.ClubId == id)
+                                    .ToListAsync();
+
+            List<ClubUser> clubUsers = new List<ClubUser>();
+
+            clubUsers = members;
+            
             var club = await _context.Club
                 .FirstOrDefaultAsync(m => m.ClubId == id);
+
+            Club clubWithMembers = new Club();
+
+            clubWithMembers = club;
+
+            clubWithMembers.ClubUsers = clubUsers;
+
+
+            ClubDetailsViewModel clubDetailsViewModel = new ClubDetailsViewModel
+            {
+                Club = clubWithMembers,
+                CurrentUserId = user.Id
+            };
+
             if (club == null)
             {
                 return NotFound();
             }
 
-            return View(club);
+            return View(clubDetailsViewModel);
         }
 
 
@@ -64,12 +101,18 @@ namespace Prose.Controllers
                             .Where(cu => cu.UserId == user.Id)
                             .ToList();
 
+            ClubUserIndexViewModel ClubUserIndexViewModel = new ClubUserIndexViewModel
+            {
+                ClubUsers = ClubData,
+                CurrentUserId = user.Id
+            };
+
             if (ClubData == null)
             {
                 return NotFound();
             }
 
-            return View(ClubData);
+            return View(ClubUserIndexViewModel);
     }
 
         // GET: Clubs/Create
@@ -85,8 +128,13 @@ namespace Prose.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ClubId,Name,Location,Description,MeetingFrequency,UserId")] Club club)
         {
+            ModelState.Remove("UserId");
+
+            var user = await GetCurrentUserAsync();
+
             if (ModelState.IsValid)
             {
+                club.UserId = user.Id;
                 _context.Add(club);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -97,13 +145,15 @@ namespace Prose.Controllers
         // GET: Clubs/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            var user = await GetCurrentUserAsync();
+
             if (id == null)
             {
                 return NotFound();
             }
 
             var club = await _context.Club.FindAsync(id);
-            if (club == null)
+            if (club == null || club.UserId != user.Id)
             {
                 return NotFound();
             }
@@ -115,8 +165,12 @@ namespace Prose.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ClubId,Name,Location,Description,MeetingFrequency,UserId")] Club club)
+        public async Task<IActionResult> Edit(int id, Club club)
         {
+            ModelState.Remove("UserId");
+
+            var user = await GetCurrentUserAsync();
+
             if (id != club.ClubId)
             {
                 return NotFound();
@@ -126,6 +180,7 @@ namespace Prose.Controllers
             {
                 try
                 {
+                    club.UserId = user.Id;
                     _context.Update(club);
                     await _context.SaveChangesAsync();
                 }
@@ -148,6 +203,8 @@ namespace Prose.Controllers
         // GET: Clubs/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            var user = await GetCurrentUserAsync();
+
             if (id == null)
             {
                 return NotFound();
@@ -155,7 +212,7 @@ namespace Prose.Controllers
 
             var club = await _context.Club
                 .FirstOrDefaultAsync(m => m.ClubId == id);
-            if (club == null)
+            if (club == null || user.Id != club.UserId)
             {
                 return NotFound();
             }

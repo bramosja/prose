@@ -3,21 +3,19 @@
 @{
     ViewData["Title"] = "SuggestedBooksIndex";
     Layout = "~/Views/Shared/_ClubLayout.cshtml";
-}
-
-@{
     string clubId = Context.Request.Query["clubId"].ToString();
+    int i = 0;
 }
 
 <div class="d-flex justify-content-center">
     <div style="width:800px;">
         <h1>Suggested Books</h1>
-        <p>
-            <a asp-action="Create">Create New</a>
-        </p>
         <table class="table">
             <thead>
                 <tr>
+                    <th>
+                        <p>Rank</p>
+                    </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Book.Image)
                     </th>
@@ -38,6 +36,9 @@
                 {
                     <tr>
                         <td>
+                            <p>@{i = i + 1;}</p>
+                        </td>
+                        <td>
                             <img src="@item.Book.Image" alt="book cover image for @item.Book.Title" />
                         </td>
                         <td>
@@ -52,10 +53,32 @@
                             </span>
                         </td>
                         <td>
-                            <a asp-action="Create" asp-controller="Votes" asp-route-bookId="@item.Book.BookId" asp-route-clubId="@clubId">Vote</a> |
-                            <a asp-action="Delete" asp-route-id="@item.Book.BookId">Delete</a>
+                            <ul class="list-group small">
+                                @if(item.CurrentUserId != item.Book.ClubUser.UserId)
+                                {
+                                    <li class="list-group-item">
+                                        <a asp-action="Create" asp-controller="Votes" asp-route-bookId="@item.Book.BookId" asp-route-clubId="@clubId">Vote</a> 
+                                    </li>
+                                }
+                                @if(item.CurrentUserId == item.Book.ClubUser.UserId)
+                                {
+                                    <li class="list-group-item">
+                                        <a asp-action="Delete" asp-route-id="@item.Book.BookId">Delete</a>
+                                    </li>
+                                }
+
+                                @if(item.CurrentUserId == item.OwnerId)
+                                {
+                                    <li class="list-group-item">
+                                        <a asp-action="CurrentlyReading" asp-controller="Books" asp-route-bookId="@item.Book.BookId" asp-route-clubId="@clubId">Next Read</a>
+                                    </li>
+                                }
+                            </ul>
                         </td>
+
+
                     </tr>
+                    
                 }
             </tbody>
         </table>

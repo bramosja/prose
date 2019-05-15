@@ -1,45 +1,67 @@
-﻿@model Prose.Models.Club
+﻿@model Prose.Models.ClubViewModels.ClubDetailsViewModel
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
 
-<div>
-    <h4>Club</h4>
+<div class="container indexContainer">
+    <h4>Club Details</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Club.Name)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Club.Name)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Location)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Club.Location)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Location)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Club.Location)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Club.Description)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Club.Description)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MeetingFrequency)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Club.MeetingFrequency)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MeetingFrequency)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Club.MeetingFrequency)
         </dd>
     </dl>
-</div>
-<div>
-    @*Make this affordance only available to the creator of the club*@
-    <a asp-action="Edit" asp-route-id="@Model.ClubId">Edit</a> |
-    <a asp-action="Index">Back to List</a> |
-    @*Only available to non-clubmembers, this will route to the ClubUser controller and perform a "create" in order to add the user to the club*@
-    <a asp-controller="ClubUsers" asp-action="Create" asp-route-id="@Model.ClubId">Join</a>
+
+    <div>
+        <ul class="list-group">
+            @*This affordance only available to the creator of the club*@
+            @if (Model.CurrentUserId == Model.Club.UserId)
+            {
+                <li class="list-group-item">
+                    <a asp-action="Edit" asp-route-id="@Model.Club.ClubId">Edit</a>
+                </li>
+            }
+            else
+            {
+                <li class="list-group-item">
+                    @if (Model.Club.ClubUsers.Any(u => u.UserId == Model.CurrentUserId))
+                    {
+                        <p class="font-italic">Currently a member</p>
+                    }
+                    else
+                    {
+                        @*Only available to non-clubmembers, this will route to the ClubUser controller and perform a "create" in order to add the user to the club*@
+                        <a asp-controller="ClubUsers" asp-action="Create" asp-route-id="@Model.Club.ClubId">Join</a>
+                    }
+                </li>
+
+            }
+            <li class="list-group-item">
+                <a asp-action="Index">Back to List</a>
+            </li>
+        </ul>
+    </div>
 </div>

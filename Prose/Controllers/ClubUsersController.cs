@@ -126,9 +126,11 @@ namespace Prose.Controllers
             return View(clubUser);
         }
 
-        // GET: ClubUsers/Delete/5
+        // Removes a user from a club
         public async Task<IActionResult> Delete(int? id)
         {
+            var user = await GetCurrentUserAsync();
+
             if (id == null)
             {
                 return NotFound();
@@ -136,24 +138,13 @@ namespace Prose.Controllers
 
             var clubUser = await _context.ClubUser
                                 .Include(c => c.Club)
-                                .FirstOrDefaultAsync(m => m.ClubUserId == id);
-            if (clubUser == null)
-            {
-                return NotFound();
-            }
+                                .Where(m => m.ClubId == id &&
+                                    m.UserId == user.Id)
+                                .FirstOrDefaultAsync();
 
-            return View(clubUser);
-        }
-
-        // POST: ClubUsers/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var clubUser = await _context.ClubUser.FindAsync(id);
             _context.ClubUser.Remove(clubUser);
             await _context.SaveChangesAsync();
-            return RedirectToAction();
+            return RedirectToAction("UserClubsList", "Clubs");
         }
 
         private bool ClubUserExists(int id)

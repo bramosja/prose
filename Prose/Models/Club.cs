@@ -26,6 +26,6 @@ namespace Prose.Models
         public string UserId { get; set; }
 
         [NotMapped]
-        public List<ApplicationUser> Users { get; set; }
+        public List<ClubUser> ClubUsers { get; set; }
     }
 }

@@ -1,65 +1,72 @@
-﻿@model Prose.Models.Book
+﻿@model Prose.Models.ClubViewModels.ClubBookIndexViewModel
 
 @{
     ViewData["Title"] = "ClubDashboard";
     Layout = "~/Views/Shared/_ClubLayout.cshtml";
+    string clubId = Context.Request.Query["clubId"].ToString();
 }
 
 
-<div class="d-flex justify-content-between">
+<div>
     <div>
         <h4>Club Info</h4>
-        <p>@Model.ClubUser.Club.Description</p>
+        <p>@Model.Club.Description</p>
         <h4>Meeting Info</h4>
-        <p>@Model.ClubUser.Club.Name meets @Model.ClubUser.Club.MeetingFrequency</p>
-    </div>
-    <div>
-        <h2>Current Book</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Title)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Author)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Image)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Details)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CurrentlyReading)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => modelItem.Title)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => modelItem.Author)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => modelItem.Image)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => modelItem.Details)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => modelItem.CurrentlyReading)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@Model.BookId">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@Model.BookId">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@Model.BookId">Delete</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <p>@Model.Club.Name meets @Model.Club.MeetingFrequency.ToLower()</p>
     </div>
 </div>
+
+@if (Model.Book == null)
+{
+    <div class="d-flex justify-content-around">
+        <div>
+            <h2>Current Book</h2>
+            <p>No book has been selected to currently read</p>
+        </div>
+    </div>
+}
+else
+{
+    <div class="d-flex justify-content-around">
+        <div style="width: 30%;">
+            <h2>Current Book</h2>
+            <table class="table">
+                <tbody>
+                    <form method="get">
+                        <tr>
+                            <td>
+                                <img src="@Model.Book.Image" alt="Image for @Model.Book.Title" />
+                            </td>
+                            <td>
+                                @if(Model.Book.Title != null)
+                                {
+                                    @Html.DisplayFor(modelItem => modelItem.Book.Title)
+                                }
+                            </td>
+                            <td>
+                                @if (Model.Book.Author != null)
+                                {
+                                    @Html.DisplayFor(modelItem => modelItem.Book.Author)
+                                }
+                            </td>
+                            <td>
+                                @if(Model.Book.Details != null)
+                                {
+                                    @Html.DisplayFor(modelItem => modelItem.Book.Details)
+                                }
+                            </td>
+                            <td>
+                                <input name="bookId" type="hidden" value="@Model.Book.BookId" />
+                                <input name="clubId" type="hidden" value="@Model.Club.ClubId" />
+                                @if(Model.CurrentUserId == Model.Club.UserId)
+                                {
+                                    <button type="submit" asp-action="IsPastRead" asp-route-clubId="@clubId">Remove From Currently Reading</button>
+                                }
+                            </td>
+                        </tr>
+                    </form>
+                </tbody>
+            </table>
+        </div>
+    </div>
+}

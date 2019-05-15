@@ -18,10 +18,10 @@ html {
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #6D6466;
 }
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #6D6466;
 }
 
 .box-shadow {
@@ -43,7 +43,7 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
-    background-color: #F5E7D1;
+    background-color: #F7EEE1;
     font-family: 'Roboto', sans-serif;
 }
 .footer {
@@ -81,4 +81,8 @@ a:visited {
     text-overflow: ellipsis;
     display: inline-block;
     max-width: 100%;
+}
+
+.indexContainer {
+    padding: 50px;
 }
