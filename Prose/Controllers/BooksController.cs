@@ -77,6 +77,13 @@ namespace Prose.Controllers
                                                     }
                                                 }).OrderByDescending(v => v.VoteTotal).ToListAsync();
 
+            int i = 0;
+
+            foreach (BooksIndexViewModel b in applicationDbContext)
+            {
+                i = i + 1;
+                b.Book.Rank = i;
+            }
 
             if (applicationDbContext == null)
             {

@@ -5,106 +5,108 @@
     string clubId = Context.Request.Query["clubId"].ToString();
 }
 
-@if (Model == null)
-{
-    <div class="d-flex justify-content-around">
-        <div>
-            <h1>Search Results</h1>
-            <p class="font-italic">Nothing with those search parameters could be found.</p>
-            <a asp-controller="Books" asp-action="Create" asp-route-clubId="@clubId">Return to search</a>
-            <div class="d-flex flex-wrap justify-content-between">
+<div class="container indexContainer">
+    @if (Model == null)
+    {
+        <div class="d-flex justify-content-around">
+            <div>
+                <h1>Search Results</h1>
+                <p class="font-italic">Nothing with those search parameters could be found.</p>
+                <a asp-controller="Books" asp-action="Create" asp-route-clubId="@clubId">Return to search</a>
+                <div class="d-flex flex-wrap justify-content-between">
+                </div>
             </div>
         </div>
-    </div>
-}
-else if (Model.items == null)
-{
-    <div class="d-flex justify-content-around">
-        <div>
-            <h1>Search Results</h1>
-            <p class="font-italic">Nothing with those search parameters could be found.</p>
-            <a asp-controller="Books" asp-action="Create">Return to search</a>
-            <div class="d-flex flex-wrap justify-content-between">
+    }
+    else if (Model.items == null)
+    {
+        <div class="d-flex  flex-row justify-content-around">
+            <div>
+                <h1>Search Results</h1>
+                <p class="font-italic">Nothing with those search parameters could be found.</p>
+                <a asp-controller="Books" asp-action="Create">Return to search</a>
+                <div class="d-flex flex-wrap justify-content-between">
+                </div>
             </div>
         </div>
-    </div>
-}
-else
-{
-    <div class="d-flex justify-content-around">
-        <div>
-            <h1>Search Results</h1>
-            <div class="d-flex flex-wrap justify-content-between">
-                @foreach (var i in Model.items)
-                {
-                    <form asp-action="SuggestBookPost" method="post">
-                        <div style="width: 250px; margin: 10px 5px;">
-                            <div>
-                                <div class="text-center">
-                                    @if (i.volumeInfo.imageLinks != null)
-                                    {
-                                        <img src="@i.volumeInfo.imageLinks.thumbnail" alt="book cover image for @i.volumeInfo.title" />
-                                        <input name="image" type="hidden" value="@i.volumeInfo.imageLinks.thumbnail" />
-                                    }
-                                    else
-                                    {
-                                        <p>No available image</p>
-                                    }
-                                </div>
+    }
+    else
+    {
+        <div class="d-flex justify-content-around">
+            <div>
+                <h1>Search Results</h1>
+                <div class="d-flex flex-wrap justify-content-between">
+                    @foreach (var i in Model.items)
+                    {
+                        <form asp-action="SuggestBookPost" method="post">
+                            <div style="width: 250px; margin: 10px 5px;">
                                 <div>
+                                    <div class="text-center">
+                                        @if (i.volumeInfo.imageLinks != null)
+                                        {
+                                            <img src="@i.volumeInfo.imageLinks.thumbnail" alt="book cover image for @i.volumeInfo.title" />
+                                            <input name="image" type="hidden" value="@i.volumeInfo.imageLinks.thumbnail" />
+                                        }
+                                        else
+                                        {
+                                            <p>No available image</p>
+                                        }
+                                    </div>
                                     <div>
                                         <div>
-                                            <h5 class="text-wrap">@i.volumeInfo.title</h5>
-                                        </div>
-                                        <div>
-                                            @if (i.volumeInfo.authors != null)
-                                            {
-                                                @if (i.volumeInfo.authors.Count() >= 2)
+                                            <div>
+                                                <h5 class="text-wrap">@i.volumeInfo.title</h5>
+                                            </div>
+                                            <div>
+                                                @if (i.volumeInfo.authors != null)
                                                 {
-                                                    <p>Multiple Authors</p>
+                                                    @if (i.volumeInfo.authors.Count() >= 2)
+                                                    {
+                                                        <p>Multiple Authors</p>
 
-                                                    @*@foreach(var a in i.volumeInfo.authors)
+                                                        @*@foreach(var a in i.volumeInfo.authors)
+                                                            {
+                                                                <p>@a </p>
+                                                            }*@
+
+                                                    }
+                                                    else if (i.volumeInfo.authors.Count() == 1)
+                                                    {
+                                                        @foreach (var a in i.volumeInfo.authors)
                                                         {
-                                                            <p>@a </p>
-                                                        }*@
 
-                                                }
-                                                else if (i.volumeInfo.authors.Count() == 1)
-                                                {
-                                                    @foreach (var a in i.volumeInfo.authors)
+                                                            <p name="Author">Author: @a</p>
+                                                            <input name="author" type="hidden" value="@a" />
+
+                                                        }
+                                                    }
+                                                    else
                                                     {
 
-                                                        <p name="Author">Author: @a</p>
-                                                        <input name="author" type="hidden" value="@a" />
+                                                        <p class="font-italic card-text">No known author</p>
 
                                                     }
                                                 }
-                                                else
-                                                {
 
-                                                    <p class="font-italic card-text">No known author</p>
-
-                                                }
-                                            }
-
-                                        </div>
-                                        <div name="Details">
-                                            <p>@i.volumeInfo.description</p>
-                                        </div>
-                                        <div>
-                                            <input name="clubId" type="hidden" value="@clubId" />
-                                            <input name="title" type="hidden" value="@i.volumeInfo.title" />
-                                            <input name="details" type="hidden" value="@i.volumeInfo.description" />
-                                            <input type="submit" value="Suggest" asp-controller="Books" asp-action="SuggestBookPost" asp-route-clubId="clubId">
+                                            </div>
+                                            <div name="Details">
+                                                <p>@i.volumeInfo.description</p>
+                                            </div>
+                                            <div>
+                                                <input name="clubId" type="hidden" value="@clubId" />
+                                                <input name="title" type="hidden" value="@i.volumeInfo.title" />
+                                                <input name="details" type="hidden" value="@i.volumeInfo.description" />
+                                                <input type="submit" value="Suggest" asp-controller="Books" asp-action="SuggestBookPost" asp-route-clubId="clubId">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </form>
-                }
+                        </form>
+                    }
+                </div>
             </div>
         </div>
-    </div>
-}
+    }
+</div>
 

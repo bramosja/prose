@@ -30,10 +30,14 @@
                     <th>
                         @Html.DisplayNameFor(model => model.ClubUsers[0].Club.MeetingFrequency)
                     </th>
-                    <th></th>
+                    <th>
+                        <div></div>
+                    </th>
+                    <th>
+                        <div></div>
+                    </th>
                 </tr>
             </thead>
-    <div class="row">
             <tbody>
         @foreach (var item in Model.ClubUsers) {
             <div class="row">
@@ -51,12 +55,14 @@
                         @Html.DisplayFor(modelItem => item.Club.MeetingFrequency)
                     </td>
                     <td>
+                        <a asp-action="Details" asp-route-id="@item.ClubId"><i class="fas fa-bars"></i></a>
                         @if(item.Club.UserId == Model.CurrentUserId)
                         {
-                            <a asp-action="Edit" asp-route-id="@item.ClubId">Edit</a>
-                            <a asp-action="Delete" asp-route-id="@item.ClubId">Delete</a>
+                            <a asp-action="Edit" asp-route-id="@item.ClubId"><i class="fas fa-edit"></i></a>
+                            <a asp-action="Delete" asp-route-id="@item.ClubId"><i class="fas fa-trash"></i></a>
                         }
-                        <a asp-action="Details" asp-route-id="@item.ClubId">Details</a>
+                    </td>
+                    <td>
                         @if(item.Club.UserId != Model.CurrentUserId)
                         {
                             <a asp-action="Delete" asp-controller="ClubUsers" asp-route-id="@item.ClubId">Leave Club</a>
@@ -67,5 +73,4 @@
         }
             </tbody>
         </table>
-    </div>
 </div>

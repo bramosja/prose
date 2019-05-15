@@ -208,6 +208,8 @@ namespace Prose.Migrations
 
                     b.Property<bool>("PastRead");
 
+                    b.Property<int>("Rank");
+
                     b.Property<string>("Title")
                         .IsRequired();
 
@@ -216,38 +218,6 @@ namespace Prose.Migrations
                     b.HasIndex("ClubUserId");
 
                     b.ToTable("Book");
-
-                    b.HasData(
-                        new
-                        {
-                            BookId = 1,
-                            Author = "Min Jin Lee",
-                            ClubUserId = 1,
-                            CurrentlyReading = true,
-                            Details = "A riveting tale about something",
-                            PastRead = false,
-                            Title = "Pachinko"
-                        },
-                        new
-                        {
-                            BookId = 2,
-                            Author = "Baby Spice",
-                            ClubUserId = 2,
-                            CurrentlyReading = false,
-                            Details = "An autobiographical look into the life of the sweetest member of the Spice Girls",
-                            PastRead = false,
-                            Title = "Sugar"
-                        },
-                        new
-                        {
-                            BookId = 3,
-                            Author = "George Foreman",
-                            ClubUserId = 1,
-                            CurrentlyReading = false,
-                            Details = "Blah blah",
-                            PastRead = false,
-                            Title = "George Foreman: Life and Tales"
-                        });
                 });
 
             modelBuilder.Entity("Prose.Models.Club", b =>
@@ -271,35 +241,6 @@ namespace Prose.Migrations
                     b.HasKey("ClubId");
 
                     b.ToTable("Club");
-
-                    b.HasData(
-                        new
-                        {
-                            ClubId = 1,
-                            Description = "A relaxed group of ladies who all know Asia somehow.",
-                            Location = "Nashville, TN",
-                            MeetingFrequency = "Once a month",
-                            Name = "Bookish Broads",
-                            UserId = "fdb2f85d-5fba-49e1-8731-3e887bfd5834"
-                        },
-                        new
-                        {
-                            ClubId = 2,
-                            Description = "Stephen King themed club.",
-                            Location = "Nashville, TN",
-                            MeetingFrequency = "Once bimonthly",
-                            Name = "Kingers",
-                            UserId = "fdb2f85d-5fba-49e1-8731-3e887bfd5834"
-                        },
-                        new
-                        {
-                            ClubId = 3,
-                            Description = "A social justice oriented book club for all Nashvillians",
-                            Location = "Nashville, TN",
-                            MeetingFrequency = "Twice a month",
-                            Name = "SJ Readers of Nashville",
-                            UserId = "fdb2f85d-5fba-49e1-8731-3e887bfd5834"
-                        });
                 });
 
             modelBuilder.Entity("Prose.Models.ClubUser", b =>
@@ -320,26 +261,6 @@ namespace Prose.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("ClubUser");
-
-                    b.HasData(
-                        new
-                        {
-                            ClubUserId = 1,
-                            ClubId = 1,
-                            UserId = "fdb2f85d-5fba-49e1-8731-3e887bfd5834"
-                        },
-                        new
-                        {
-                            ClubUserId = 2,
-                            ClubId = 2,
-                            UserId = "fdb2f85d-5fba-49e1-8731-3e887bfd5834"
-                        },
-                        new
-                        {
-                            ClubUserId = 3,
-                            ClubId = 3,
-                            UserId = "fdb2f85d-5fba-49e1-8731-3e887bfd5834"
-                        });
                 });
 
             modelBuilder.Entity("Prose.Models.Vote", b =>
@@ -355,26 +276,6 @@ namespace Prose.Migrations
                     b.HasKey("VoteId");
 
                     b.ToTable("Vote");
-
-                    b.HasData(
-                        new
-                        {
-                            VoteId = 1,
-                            BookId = 2,
-                            ClubUserId = 1
-                        },
-                        new
-                        {
-                            VoteId = 2,
-                            BookId = 2,
-                            ClubUserId = 2
-                        },
-                        new
-                        {
-                            VoteId = 3,
-                            BookId = 3,
-                            ClubUserId = 3
-                        });
                 });
 
             modelBuilder.Entity("Prose.Models.ApplicationUser", b =>
@@ -392,17 +293,17 @@ namespace Prose.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "fdb2f85d-5fba-49e1-8731-3e887bfd5834",
+                            Id = "5fe96b3d-f921-4dbe-b02a-7ff1dcce0c73",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1eccaaeb-b0b1-423e-b40b-dc5cd5fe00c4",
+                            ConcurrencyStamp = "ce65e53c-c28b-4974-8505-e811a7168d1e",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEG63D8WgVV2M0Uo3qvZyLyPlwqnVW4zjGFx1oykLzRfpSBJJUuRTiDZgDukC6y7Xlg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAozpUEilNmTS6BCvJ7F9TI+y9xI1RMCE3oyTwwm6UGHCSY/MM/lj5fLo0ncl8yxTA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "90b449fb-0919-4d4e-8e56-adfc1a3352cc",
+                            SecurityStamp = "c9398eca-76b7-4272-aa7c-2f4fc210a353",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com",
                             FirstName = "admin",

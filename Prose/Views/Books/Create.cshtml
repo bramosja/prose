@@ -8,28 +8,30 @@
     string clubId = Context.Request.Query["clubId"].ToString();
 }
 
-<h1>Search</h1>
+<div class="container indexContainer">
+    <h1>Search</h1>
 
-<h4>Book</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="SearchApi" method="get">
-            <div class="form-group">
-                <label name="searchName" class="control-label">Search Title</label>
-                <input name="searchName" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label name="searchAuthor" class="control-label">Search Author</label>
-                <input name="searchAuthor" class="form-control" />
+    <h4>Book</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="SearchApi" method="get">
+                <div class="form-group">
+                    <label name="searchName" class="control-label">Search Title</label>
+                    <input name="searchName" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label name="searchAuthor" class="control-label">Search Author</label>
+                    <input name="searchAuthor" class="form-control" />
 
-            </div>
+                </div>
             
-            <div class="form-group">
-                <input name="clubId" type="hidden" value="@clubId"/>
-                <input type="submit" value="Search" asp-controller="Books" asp-action="SearchApi" asp-route-clubId="clubId" class="btn btn-primary" />
-            </div>
-        </form>
+                <div class="form-group">
+                    <input name="clubId" type="hidden" value="@clubId"/>
+                    <input type="submit" value="Search" asp-controller="Books" asp-action="SearchApi" asp-route-clubId="clubId" class="btn btn-secondary" />
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
