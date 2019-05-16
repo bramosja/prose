@@ -1,4 +1,6 @@
 # Prose
 
 
-! [] (ProseEDR.pdf)
+
+![Prose Entity Relationship Diagram](ProseERD.png)
+
