@@ -62,7 +62,7 @@
                                 }
                                 @if(item.CurrentUserId == item.Book.ClubUser.UserId)
                                 {
-                                        <a asp-action="Delete" asp-route-id="@item.Book.BookId"><i class="fas fa-trash"></i></a>
+                                        <a asp-action="Delete" asp-controller="Books" asp-route-id="@item.Book.BookId" asp-route-clubId="@clubId"><i class="fas fa-trash"></i></a>
                                 }
                             </div>
                             <div style="min-width: 100px";>
