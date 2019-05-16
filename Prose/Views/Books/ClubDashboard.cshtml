@@ -6,26 +6,34 @@
     string clubId = Context.Request.Query["clubId"].ToString();
 }
 
-<div class="d-flex justify-content-between" style="width:100%; padding-right: 30px; padding-left:30px;">
-    <div class="flex-column" style="width:30%;">
-        <h4>Club Info</h4>
-        <p>@Model.Club.Description</p>
-        <h4>Meeting Info</h4>
-        <p>@Model.Club.Name meets @Model.Club.MeetingFrequency.ToLower()</p>
-    </div>
 
-    @if (Model.Book == null)
-    {
-        <div class="d-flex justify-content-around">
+@if (Model.Book == null)
+{
+    <div class="d-flex justify-content-between" style="width:70%; padding-right: 30px; padding-left:30px;">
+        <div class="flex-column" style="width:300px;">
+            <h4>Club Info</h4>
+            <p>@Model.Club.Description</p>
+            <h4>Meeting Info</h4>
+            <p>@Model.Club.Name meets @Model.Club.MeetingFrequency.ToLower()</p>
+        </div>
+        <div class="d-flex float-right" style="padding-left:30px;">
             <div>
                 <h2>Current Book</h2>
                 <p>No book has been selected to currently read</p>
             </div>
         </div>
-    }
-    else
-    {
-        <div class="d-flex float-right" style="padding-left:20px;">
+    </div>
+}
+else
+{
+    <div class="d-flex justify-content-between" style="width:100%; padding-right: 30px; padding-left:30px;">
+        <div class="flex-column" style="min-width:300px;">
+            <h4>Club Info</h4>
+            <p>@Model.Club.Description</p>
+            <h4>Meeting Info</h4>
+            <p>@Model.Club.Name meets @Model.Club.MeetingFrequency.ToLower()</p>
+        </div>
+        <div class="d-flex float-right" style="padding-left:30px;">
             <div style="width: 50%;">
                 <h2>Current Book</h2>
                 <table class="table">
@@ -36,20 +44,20 @@
                                     <img src="@Model.Book.Image" alt="Image for @Model.Book.Title" />
                                     <hr />
                                     <h6 class="font-weight-bold">
-                                        @if(Model.Book.Title != null)
+                                        @if (Model.Book.Title != null)
                                         {
                                             @Html.DisplayFor(modelItem => modelItem.Book.Title)
                                         }
                                     </h6>
                                     <p class="float-left">
-                                       by @if (Model.Book.Author != null)
+                                        by @if (Model.Book.Author != null)
                                         {
-                                           @Html.DisplayFor(modelItem => modelItem.Book.Author)
+                                            @Html.DisplayFor(modelItem => modelItem.Book.Author)
                                         }
                                     </p>
                                 </td>
                                 <td style="min-width: 500px">
-                                    @if(Model.Book.Details != null)
+                                    @if (Model.Book.Details != null)
                                     {
                                         @Html.DisplayFor(modelItem => modelItem.Book.Details)
                                     }
@@ -59,7 +67,7 @@
                                         <input name="bookId" type="hidden" value="@Model.Book.BookId" />
                                         <input name="clubId" type="hidden" value="@Model.Club.ClubId" />
                                     </div>
-                                    @if(Model.CurrentUserId == Model.Club.UserId)
+                                    @if (Model.CurrentUserId == Model.Club.UserId)
                                     {
                                         <button class="btn btn-secondary small" type="submit" asp-action="IsPastRead" asp-route-clubId="@clubId">Remove</button>
                                     }
@@ -70,5 +78,5 @@
                 </table>
             </div>
         </div>
-    }
-</div>
+    </div>
+}
