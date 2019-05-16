@@ -1,4 +1,4 @@
 # Prose
 
 
-<img src="ProseERD.pdf" />
+! [] (ProseEDR.pdf)
