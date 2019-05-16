@@ -1,4 +1,4 @@
 # Prose
 
 
-![Prose Entity Relationship Diagram](ERD.pdf)
+![Prose Entity Relationship Diagram](ProseERD.pdf)
