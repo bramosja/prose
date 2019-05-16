@@ -21,7 +21,7 @@
                     @Html.DisplayNameFor(model => model.Clubs[0].Description)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Clubs[0].MeetingFrequency)
+                    Meeting Frequency
                 </th>
                 <th></th>
             </tr>
@@ -43,11 +43,11 @@
                 </td>
                 @*Constraint limits the ability to edit or delete a club to the user that created the club*@
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.ClubId">Club Details</a>
-                    @if(item.UserId == Model.CurrentUserId)
+                    <a asp-action="Details" asp-route-id="@item.ClubId"><i class="fas fa-bars"></i></a>
+                    @if (item.UserId == Model.CurrentUserId)
                     {
-                        <a asp-action="Edit" asp-route-id="@item.ClubId">Edit</a>
-                        <a asp-action="Delete" asp-route-id="@item.ClubId">Delete</a> 
+                        <a asp-action="Edit" asp-route-id="@item.ClubId"><i class="fas fa-edit"></i></a>
+                        <a asp-action="Delete" asp-route-id="@item.ClubId"><i class="fas fa-trash"></i></a>
                     }
                 </td>
             </tr>

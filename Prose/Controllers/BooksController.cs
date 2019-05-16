@@ -77,6 +77,13 @@ namespace Prose.Controllers
                                                     }
                                                 }).OrderByDescending(v => v.VoteTotal).ToListAsync();
 
+            int i = 0;
+
+            foreach (BooksIndexViewModel b in applicationDbContext)
+            {
+                i = i + 1;
+                b.Book.Rank = i;
+            }
 
             if (applicationDbContext == null)
             {
@@ -161,7 +168,22 @@ namespace Prose.Controllers
                                 .Where(cu => cu.ClubId == clubId 
                                         && cu.UserId == user.Id)
                                 .FirstOrDefaultAsync();
-
+            if(title == null)
+            {
+                title = "No title";
+            }
+            if(author == null)
+            {
+                author = "No author";
+            }
+            if(image == null)
+            {
+                image = "No image";
+            }
+            if(details == null)
+            {
+                details = "No description available";
+            }
 
             //setting the details based on the selected book
             Book savedBook = new Book()
@@ -238,10 +260,9 @@ namespace Prose.Controllers
 
         }
 
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> Delete(int id, int? clubId)
         {
             var book = await _context.Book.FindAsync(id);
-            int clubId = book.ClubUser.ClubId;
             _context.Book.Remove(book);
             await _context.SaveChangesAsync();
             return RedirectToAction("SuggestedBooksIndex", new { clubId });

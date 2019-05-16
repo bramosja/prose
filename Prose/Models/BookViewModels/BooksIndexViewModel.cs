@@ -14,5 +14,6 @@ namespace Prose.Models.BookViewModels
         public string CurrentUserId { get; set; }
 
         public int? VoteTotal { get; set; }
+
     }
 }

@@ -5,16 +5,22 @@
 
 
 <div class="container indexContainer">
-    <div class="text-center">
-        <h2 class="display-6">NYT Top Fiction Books This Week</h2>
+    <div>
+        <h2 class="display-6 align-self-center">NYT Top Fiction Books Today</h2>
+        <hr />
         <div class="d-flex justify-content-between flex-wrap">
-            @foreach(var b in Model.results.books)
+            @foreach (var b in Model.results.books)
             {
-                <div>
+                <div style="max-width:300px;">
                 
-                        <img style="width:50%;" src="@b.book_image" alt="book image"/>
-                        <h6 class="font-weight-bold">@b.title</h6>
-                        <p>@b.author</p>
+                        <img class="float-left" style="width:75%;" src="@b.book_image" alt="book image"/>
+                        <div class="text-wrap" style="width:75%">
+                            <h6 class="font-weight-bold">@b.rank. @b.title</h6>
+                            <p>@b.author</p>
+                        </div>
+                        <div class="text-wrap" style="width:75%">
+                            <p>@b.description</p>
+                        </div>
                 </div>
             }
         </div>

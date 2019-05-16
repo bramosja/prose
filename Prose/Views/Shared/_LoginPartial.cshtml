@@ -3,15 +3,15 @@
 @inject UserManager<ApplicationUser> UserManager
 
 
-<ul class="navbar-nav text-sm-right">
+<ul class="navbar-nav text-sm-right font-weight-bold">
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
+            <a class="nav-link text-dark" style="padding:0;" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Profile</a>
         </li>
         <li class="nav-item">
             <form class="form-inline d-block" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button type="submit" class="nav-link btn btn-link text-dark float-right">Logout</button>
+                <button type="submit" class="nav-link btn btn-link text-dark float-right font-weight-bold" style="border-width:0;">Logout</button>
             </form>
         </li>
         <li class="nav-item">

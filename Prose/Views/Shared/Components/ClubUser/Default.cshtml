@@ -2,10 +2,10 @@
     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         My Clubs
     </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <div class="dropdown-menu" style="max-width: 150px;" aria-labelledby="dropdownMenuButton">
         @foreach (ClubUser c in ViewBag.ClubDropDownList)
         {
-            <a class="dropdown-item" asp-controller="Books" asp-action="GetCurrentlyReading" asp-route-clubId="@c.Club.ClubId">@c.Club.Name</a> <br />
+            <a class="dropdown-item text-wrap text-sm-left"  asp-controller="Books" asp-action="GetCurrentlyReading" asp-route-clubId="@c.Club.ClubId">@c.Club.Name</a> <br />
         }
         <a class="dropdown-item" asp-controller="Clubs" asp-action="UserClubsList">Manage My Clubs</a>
     </div>

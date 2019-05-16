@@ -4,17 +4,18 @@
     ViewData["Title"] = "SuggestedBooksIndex";
     Layout = "~/Views/Shared/_ClubLayout.cshtml";
     string clubId = Context.Request.Query["clubId"].ToString();
-    int i = 0;
 }
 
 <div class="d-flex justify-content-center">
-    <div style="width:800px;">
-        <h1>Suggested Books</h1>
+    <div class="indexContainer">
+        <h2>Suggested Books</h2>
+        <br />
+        <p>Vote for the book you want to read next</p>
         <table class="table">
             <thead>
                 <tr>
                     <th>
-                        <p>Rank</p>
+                        Rank
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Book.Image)
@@ -29,6 +30,7 @@
                         @Html.DisplayNameFor(model => model.Book.Details)
                     </th>
                     <th></th>
+                    <th>Total Votes</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,7 +38,7 @@
                 {
                     <tr>
                         <td>
-                            <p>@{i = i + 1;}</p>
+                            <p>@item.Book.Rank</p>
                         </td>
                         <td>
                             <img src="@item.Book.Image" alt="book cover image for @item.Book.Title" />
@@ -47,33 +49,33 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Book.Author)
                         </td>
-                        <td class="text">
-                            <span>
+                        <td class="text" style="min-width: 500px;">
+                            <p>
                                 @Html.DisplayFor(modelItem => item.Book.Details)
-                            </span>
+                            </p>
                         </td>
-                        <td>
-                            <ul class="list-group small">
+                        <td style="min-width: 100px;">
+                            <div style="min-width: 100px;">
                                 @if(item.CurrentUserId != item.Book.ClubUser.UserId)
                                 {
-                                    <li class="list-group-item">
-                                        <a asp-action="Create" asp-controller="Votes" asp-route-bookId="@item.Book.BookId" asp-route-clubId="@clubId">Vote</a> 
-                                    </li>
+                                        <a asp-action="Create" asp-controller="Votes" asp-route-bookId="@item.Book.BookId" asp-route-clubId="@clubId"><i class="fas fa-book-reader" title="vote"></i> Vote</a> 
                                 }
                                 @if(item.CurrentUserId == item.Book.ClubUser.UserId)
                                 {
-                                    <li class="list-group-item">
-                                        <a asp-action="Delete" asp-route-id="@item.Book.BookId">Delete</a>
-                                    </li>
+                                        <a asp-action="Delete" asp-controller="Books" asp-route-id="@item.Book.BookId" asp-route-clubId="@clubId"><i class="fas fa-trash"></i></a>
                                 }
-
+                            </div>
+                            <div style="min-width: 100px";>
                                 @if(item.CurrentUserId == item.OwnerId)
                                 {
-                                    <li class="list-group-item">
-                                        <a asp-action="CurrentlyReading" asp-controller="Books" asp-route-bookId="@item.Book.BookId" asp-route-clubId="@clubId">Next Read</a>
-                                    </li>
+                                        <a asp-action="CurrentlyReading" asp-controller="Books" asp-route-bookId="@item.Book.BookId" asp-route-clubId="@clubId"><i class="fas fa-arrow-left"></i> Next Read</a>
                                 }
-                            </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <p>
+                                @item.VoteTotal
+                            </p> 
                         </td>
 
 

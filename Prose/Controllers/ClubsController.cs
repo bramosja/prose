@@ -126,7 +126,7 @@ namespace Prose.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ClubId,Name,Location,Description,MeetingFrequency,UserId")] Club club)
+        public async Task<IActionResult> Create([Bind("ClubId,Name,Location,Description,MeetingFrequency")] Club club)
         {
             ModelState.Remove("UserId");
 
@@ -137,7 +137,12 @@ namespace Prose.Controllers
                 club.UserId = user.Id;
                 _context.Add(club);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var newClub = await _context.Club
+                                    .Where(c => c == club)
+                                    .FirstOrDefaultAsync();
+
+                int id = newClub.ClubId;
+                return RedirectToAction("Create", "ClubUsers", new { id });
             }
             return View(club);
         }

@@ -32,6 +32,7 @@ namespace Prose.Models
         //to indicate if a book has already been read
         public bool PastRead { get; set; } = false;
 
+        public int Rank { get; set; }
 
     }
 }
