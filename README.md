@@ -1,6 +1,6 @@
-# Prose
+# Prosé
 
-## What is Prose '{o}
+## What is Prosé?
 
-![Prose Entity Relationship Diagram](ProseERD.png)
+![Prosé Entity Relationship Diagram](/ProseERD.png)
 
