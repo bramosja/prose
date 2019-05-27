@@ -58,7 +58,7 @@
                                                 <h5 class="text-wrap">@i.volumeInfo.title</h5>
                                             </div>
                                             <div>
-                                                @if (i.volumeInfo.authors.Count() > 0)
+                                                @if (i.volumeInfo.authors != null && i.volumeInfo.authors.Count() > 0)
                                                 {
                                                     @if (i.volumeInfo.authors.Count() >= 2)
                                                     {
