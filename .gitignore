@@ -259,3 +259,7 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+
+# Files for Acessing Azure DB
+Prose\appsettings.json
+Prose\appsettings.Development.json

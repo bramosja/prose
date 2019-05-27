@@ -293,17 +293,17 @@ namespace Prose.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5fe96b3d-f921-4dbe-b02a-7ff1dcce0c73",
+                            Id = "3396c5f4-37a0-4060-9465-9f51d94fbfac",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ce65e53c-c28b-4974-8505-e811a7168d1e",
+                            ConcurrencyStamp = "e0f59d25-3637-49dd-a35e-043ef21fac77",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAozpUEilNmTS6BCvJ7F9TI+y9xI1RMCE3oyTwwm6UGHCSY/MM/lj5fLo0ncl8yxTA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJLVzH/KacdHFkEW2OmNZYwLY1Oy0AARn+7wFsqwrq/pwc3GfOuQ1CAYPK0fAa3LLQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c9398eca-76b7-4272-aa7c-2f4fc210a353",
+                            SecurityStamp = "8f6c2f9d-26ae-4dec-a000-f3fdcb788a51",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com",
                             FirstName = "admin",
