@@ -261,5 +261,5 @@ __pycache__/
 *.pyc
 
 # Files for Acessing Azure DB
-Prose\appsettings.json
-Prose\appsettings.Development.json
+**/appsettings.json
+**/appsettings.Development.json
